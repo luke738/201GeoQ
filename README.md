@@ -1,2 +1,2 @@
-# 201GeoQ
+# GeoQ
 CSCI201 Final Project
