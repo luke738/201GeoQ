@@ -22,7 +22,8 @@ public class Leaderboard extends HttpServlet
         ////////DEV CODE ONLY////////
         List<LeaderboardDataElement> boardData = new ArrayList<>();
         boardData.add(new LeaderboardDataElement("ttrojan", "15", 1234));
-        boardData.add(new LeaderboardDataElement("jmiller", "45", 456));
+        String jmillerUsername = "jmiller <img src=\"img/jeffrey_miller.jpg\" height=\"16\" width=\"16\"/>";
+        boardData.add(new LeaderboardDataElement(jmillerUsername, "45", 456));
         boardData.add(new LeaderboardDataElement("stregis", "80", 125437834));
         boardData.add(new LeaderboardDataElement("orahimi", "55", 12453434));
         boardData.add(new LeaderboardDataElement("manipusg", "40", 12543434));
