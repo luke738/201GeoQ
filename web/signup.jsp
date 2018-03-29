@@ -5,6 +5,7 @@
 
 <html>
 	<head>
+		<link rel="stylesheet" href="css/siteName.css"/>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="css/signUp.css">
@@ -15,6 +16,7 @@
 	
 	<body>
 	<div class="wholePage">
+		<span id="siteName"><a href="index.jsp">GeoQ</a></span>
 		<div class="wrapper">
 			<form class="form-signin">
 	     		<h2 class="form-signin-heading">Please Sign Up</h2>
@@ -25,5 +27,8 @@
 	    	</form>
 	  	</div>
 	</div>
+	<!--Fix chrome bug with CSS transitions and forms-->
+	<script> </script>
+	<!--Yes, really.-->
 	</body>
 </html>
