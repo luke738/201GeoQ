@@ -1,3 +1,5 @@
+package backend;
+
 public class LeaderboardDataElement
 {
     public String username; //HTML will not be rendered
