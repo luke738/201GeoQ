@@ -8,8 +8,8 @@ function loadLeaderboard()
     for(var i = 0; i<results.length; i++)
     {
         board.innerHTML += " <tr class=\"boardRow\"> " +
-                            "   <th>"+results[i].username+"</th> " +
-                            "   <th>"+results[i].score+"</th> " +
+                            "   <td>"+results[i].username+" "+results[i].emblems+"</td>" +
+                            "   <td>"+results[i].score+" "+results[i].tieSymbol+"</td> " +
                             "</tr>";
     }
 }
