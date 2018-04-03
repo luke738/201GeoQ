@@ -1,6 +1,7 @@
 package servlets;
 
-import backend.LeaderboardDataElement;
+import shared.Connection;
+import shared.LeaderboardDataElement;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.net.Socket;
 import java.util.Comparator;
 import java.util.List;
 
@@ -23,7 +24,11 @@ public class Leaderboard extends HttpServlet
         //Either check the gameid explicitly or move directly to getting the data for the leaderboard from the game
         //logic. Not entirely sure how that will work, so this is where I'm going to hardcode the data in.
         ////////DEV CODE ONLY////////
-
+        Socket s = new Socket("localhost", 4367);
+        Connection c = new Connection(s);
+        Object obj = c.receiveObject();
+        List<LeaderboardDataElement> boardData = (List<LeaderboardDataElement>)obj;
+        c.close();
         ////////END DEV. CODE////////
         //Sort by score then time, and drop anyone under the top 10
         boardData.sort(Comparator.comparingInt((LeaderboardDataElement o) -> -o.score).thenComparingInt(o -> o.timeTaken));

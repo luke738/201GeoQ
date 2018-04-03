@@ -1,13 +1,19 @@
 package backend;
 
+import shared.*;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LeaderboardTestBackend
 {
     private List<LeaderboardDataElement> boardData;
+    private ServerSocket ss;
 
-    private LeaderboardTestBackend()
+    private LeaderboardTestBackend() throws IOException
     {
         boardData = new ArrayList<>();
         boardData.add(new LeaderboardDataElement("ttrojan", 0, 1234));
@@ -28,10 +34,48 @@ public class LeaderboardTestBackend
         boardData.add(new LeaderboardDataElement("many8", 0, 10));
         boardData.add(new LeaderboardDataElement("many9", 0, 10));
         boardData.add(new LeaderboardDataElement("many10", 0, 10));
+        ss = new ServerSocket(4367);
+    }
+
+    private void start()
+    {
+        while(true)
+        {
+            try
+            {
+                Socket s = ss.accept();
+                Thread t = new Thread(() ->
+                {
+                    try
+                    {
+                        Connection c = new Connection(s);
+                        c.send(boardData);
+                        c.close();
+                    }
+                    catch(IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                });
+                t.start();
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void main(String[] args)
     {
-
+        try
+        {
+            LeaderboardTestBackend lbtb = new LeaderboardTestBackend();
+            lbtb.start();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
