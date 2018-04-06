@@ -18,7 +18,7 @@ public class signupValidation extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession curr = request.getSession();
 		String name = request.getParameter("username");
-	    	String password = request.getParameter("passnord");
+	    	String password = request.getParameter("password");
 	    	String confirmPassword = request.getParameter("confirmpassword");
 		
 	
