@@ -13,7 +13,7 @@ public class LeaderboardTestBackend
     private List<LeaderboardDataElement> boardData;
     private ServerSocket ss;
 
-    private LeaderboardTestBackend() throws IOException
+    public LeaderboardTestBackend() throws IOException
     {
         boardData = new ArrayList<>();
         boardData.add(new LeaderboardDataElement("ttrojan", 0, 1234));
@@ -37,7 +37,7 @@ public class LeaderboardTestBackend
         ss = new ServerSocket(4367);
     }
 
-    private void start()
+    public void start()
     {
         while(true)
         {
@@ -63,19 +63,6 @@ public class LeaderboardTestBackend
             {
                 e.printStackTrace();
             }
-        }
-    }
-
-    public static void main(String[] args)
-    {
-        try
-        {
-            LeaderboardTestBackend lbtb = new LeaderboardTestBackend();
-            lbtb.start();
-        }
-        catch(IOException e)
-        {
-            e.printStackTrace();
         }
     }
 }

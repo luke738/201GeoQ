@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.sql.Time;
 import java.util.Comparator;
 import java.util.List;
 
@@ -24,8 +25,10 @@ public class Leaderboard extends HttpServlet
         //Either check the gameid explicitly or move directly to getting the data for the leaderboard from the game
         //logic. Not entirely sure how that will work, so this is where I'm going to hardcode the data in.
         ////////DEV CODE ONLY////////
+        long t = System.nanoTime();
         Socket s = new Socket("localhost", 4367);
         Connection c = new Connection(s);
+        System.out.println(System.nanoTime()-t);
         Object obj = c.receiveObject();
         List<LeaderboardDataElement> boardData = (List<LeaderboardDataElement>)obj;
         c.close();
