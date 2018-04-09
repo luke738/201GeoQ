@@ -1,4 +1,8 @@
-public class LeaderboardDataElement
+package shared;
+
+import java.io.Serializable;
+
+public class LeaderboardDataElement implements Serializable
 {
     public String username; //HTML will not be rendered
     public String emblems; //HTML to represent Miller emblems, client-side will display it blindly

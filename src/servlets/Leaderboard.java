@@ -1,3 +1,7 @@
+package servlets;
+
+import shared.Connection;
+import shared.LeaderboardDataElement;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -7,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.net.Socket;
+import java.sql.Time;
 import java.util.Comparator;
 import java.util.List;
 
@@ -20,26 +25,13 @@ public class Leaderboard extends HttpServlet
         //Either check the gameid explicitly or move directly to getting the data for the leaderboard from the game
         //logic. Not entirely sure how that will work, so this is where I'm going to hardcode the data in.
         ////////DEV CODE ONLY////////
-        List<LeaderboardDataElement> boardData = new ArrayList<>();
-        boardData.add(new LeaderboardDataElement("ttrojan", 0, 1234));
-        String jmillerEmblem = "<img src=\"img/jeffrey_miller.jpg\" height=\"16\" width=\"16\"/>";
-        boardData.add(new LeaderboardDataElement("<div id='shouldBePlaintext'>jmiller</div>", jmillerEmblem, 45, 456));
-        boardData.add(new LeaderboardDataElement("stregis", 80, 125437834));
-        boardData.add(new LeaderboardDataElement("orahimi", 55, 12453434));
-        boardData.add(new LeaderboardDataElement("manipusg", 40, 12543434));
-        boardData.add(new LeaderboardDataElement("nathanzh", 60, 1000000));
-        boardData.add(new LeaderboardDataElement("kaagarwa", 60, 100000));
-        boardData.add(new LeaderboardDataElement("many1", 0, 10));
-        boardData.add(new LeaderboardDataElement("many2", 0, 10));
-        boardData.add(new LeaderboardDataElement("many3", 0, 10));
-        boardData.add(new LeaderboardDataElement("many4", 0, 10));
-        boardData.add(new LeaderboardDataElement("many5", 0, 10));
-        boardData.add(new LeaderboardDataElement("many6", 0, 10));
-        boardData.add(new LeaderboardDataElement("many7", 0, 10));
-        boardData.add(new LeaderboardDataElement("many8", 0, 10));
-        boardData.add(new LeaderboardDataElement("many9", 0, 10));
-        boardData.add(new LeaderboardDataElement("many10", 0, 10));
-
+        long t = System.nanoTime();
+        Socket s = new Socket("localhost", 4367);
+        Connection c = new Connection(s);
+        System.out.println(System.nanoTime()-t);
+        Object obj = c.receiveObject();
+        List<LeaderboardDataElement> boardData = (List<LeaderboardDataElement>)obj;
+        c.close();
         ////////END DEV. CODE////////
         //Sort by score then time, and drop anyone under the top 10
         boardData.sort(Comparator.comparingInt((LeaderboardDataElement o) -> -o.score).thenComparingInt(o -> o.timeTaken));
