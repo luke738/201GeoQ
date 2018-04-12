@@ -5,7 +5,8 @@
 out
 WEB-INF
 /build/
-/.settings/
-/.classpath
-/.project
+.settings
+.classpath
+.project
+/web/META-INF
 /.DS_Store
