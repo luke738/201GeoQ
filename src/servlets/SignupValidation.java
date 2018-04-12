@@ -11,14 +11,16 @@ import javax.servlet.http.HttpSession;
  * Servlet implementation class SignupValidation
  */
 @WebServlet(name = "SignupValidation", urlPatterns = "/SignupValidation")
-public class SignupValidation extends HttpServlet {
+public class SignupValidation extends HttpServlet
+{
 	private static final long serialVersionUID = 1L;
   
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		HttpSession curr = request.getSession();
 		String name = request.getParameter("username");
-	    	String password = request.getParameter("password");
-	    	String confirmPassword = request.getParameter("confirmpassword");
+		String password = request.getParameter("password");
+		String confirmPassword = request.getParameter("confirmpassword");
 		
 	
 	}
