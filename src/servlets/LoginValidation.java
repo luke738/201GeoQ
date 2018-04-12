@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class loginValidation
  */
-@WebServlet("/LoginValidation")
+@WebServlet(name = "LoginValidation", urlPatterns = "/LoginValidation")
 public class LoginValidation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	  
