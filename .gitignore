@@ -5,3 +5,7 @@
 out
 WEB-INF
 /build/
+.settings
+.classpath
+.project
+/web/META-INF
