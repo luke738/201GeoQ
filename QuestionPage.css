@@ -1,0 +1,58 @@
+@charset "UTF-8";
+* { box-sizing: border-box; 
+	font-family: 'IBM Plex Mono', monospace;
+}
+
+ html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+ .filler{
+ 	width: 100%;
+ 	height: -20%;
+ }
+#street-view {
+  position: relative;
+  height: 80%;
+  width: 80%;
+
+}
+.questionBox{
+	height: 25%;
+	width: 50%;
+	margin-left: auto;
+ 	margin-right: auto;
+}
+.button:hover{
+	cursor: pointer;
+}
+.whiteSpace{
+	z-index: 20;
+	position: relative;
+	top: 70px;
+	width: 100%;
+	height: 10%;
+	background-color: white;
+}
+.button{
+	float: left;
+	width: 25%;
+	padding: 1%;
+	height: 20%;
+	border: 1px solid black;
+	text-align: center;
+	background-color: #A8A8A8;
+}
+.button:hover{
+	background-color: white;
+}
+.chatBox{
+	float: right;
+	border: 1px solid black;
+	width: 25%;
+	height: 50%;
+}
+.clear{
+	clear:left;
+}
