@@ -10,7 +10,7 @@ function connectToServer()
         messageHistory[i] = "";
         document.getElementById("chatHis").innerHTML += "<tr class=\"chatRow\"><td class=\"chatMessage\"></td></tr>\n";
     }
-    socket = new WebSocket("ws://localhost:8080/Chat"); //Needs to be changed for deployment to a real server
+    socket = new WebSocket("ws://localhost:8080/GeoQ/Chat"); //Needs to be changed for deployment to a real server
     socket.onopen = function (ev)
     {
         addToHistory("Connected to chat!");

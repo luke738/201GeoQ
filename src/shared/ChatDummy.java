@@ -23,7 +23,7 @@ public class ChatDummy
         try
         {
             WebSocketContainer container= WsContainerProvider.getWebSocketContainer();
-            String uri = "ws://localhost:8080/Chat";
+            String uri = "ws://localhost:8080/GeoQ/Chat";
             container.connectToServer(this, new URI(uri));
 
         }

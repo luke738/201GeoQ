@@ -3,7 +3,7 @@
 
 body {
 	background: #eee;
-	background-image: url('/img/signUpPhoto.jpg');
+	background-image: url('../img/signUpPhoto.jpg');
 	background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

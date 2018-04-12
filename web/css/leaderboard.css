@@ -1,6 +1,6 @@
 body {
     background: #eee;
-    background-image: url('/img/leaderboardBG.jpg');
+    background-image: url('../img/leaderboardBG.jpg');
     background-position: 0 0;
     background-repeat: no-repeat;
     background-size: 100vw 100vh;

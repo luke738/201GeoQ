@@ -3,7 +3,7 @@
 
 body {
 	background: #eee;
-	background-image: url('/img/loginBackground.jpg');
+	background-image: url('../img/loginBackground.jpg');
 }
 .wholePage{
 	width:100%;
