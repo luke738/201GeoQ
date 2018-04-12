@@ -9,10 +9,8 @@
     <title>Street View</title>
   </head>
   <body>
-  <!-- <div class="chatBox"></div> -->
-  <div class = "whiteSpace"></div>
-    <div id="street-view">
-    </div>
+  <div class="chatBox"> <span>Insert chatbox here</span></div>
+    <div id="street-view"></div>
     <div class = "questionBox">
     		<div class="button">Paris</div>
     		<div class="button">NYC</div>
@@ -24,6 +22,7 @@
       function initialize() {
         panorama = new google.maps.StreetViewPanorama(
             document.getElementById('street-view'),
+            
             {
               position: {lat: 37.869260, lng: -122.254811},
               pov: {heading: 165, pitch: 0},

@@ -7,33 +7,22 @@
         height: 100%;
         margin: 0;
         padding: 0;
-      }
- .filler{
- 	width: 100%;
- 	height: -20%;
- }
+        overflow: hidden;
+}
 #street-view {
   position: relative;
   height: 80%;
-  width: 80%;
+  width: 75%;
+  top: -8.5%;
 
 }
 .questionBox{
 	height: 25%;
-	width: 50%;
-	margin-left: auto;
- 	margin-right: auto;
+	width: 75%;
+	margin-top: -4.25%;
 }
 .button:hover{
 	cursor: pointer;
-}
-.whiteSpace{
-	z-index: 20;
-	position: relative;
-	top: 70px;
-	width: 100%;
-	height: 10%;
-	background-color: white;
 }
 .button{
 	float: left;
@@ -51,7 +40,11 @@
 	float: right;
 	border: 1px solid black;
 	width: 25%;
-	height: 50%;
+	height: 76.5%;
+	background-color: black;
+	font-size: 15px;
+	text-align: center;
+	color: white;
 }
 .clear{
 	clear:left;
