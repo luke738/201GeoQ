@@ -5,3 +5,6 @@
 out
 WEB-INF
 /build/
+/.settings/
+/.classpath
+/.project
