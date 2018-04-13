@@ -9,3 +9,4 @@ WEB-INF
 .classpath
 .project
 /web/META-INF
+/.DS_Store
