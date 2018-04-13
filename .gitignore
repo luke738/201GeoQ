@@ -10,3 +10,4 @@ WEB-INF
 .project
 /web/META-INF
 /.DS_Store
+/src/.DS_Store
