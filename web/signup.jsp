@@ -16,7 +16,7 @@
 	
 	<body>
 	<div class="wholePage">
-		<span id="siteName"><a href="index.jsp">GeoQ</a></span>
+		<span id="siteName"><a href="index.html">GeoQ</a></span>
 		<div class="wrapper">
 			<form class="form-signin">
 	     		<h2 class="form-signin-heading">Please Sign Up</h2>
