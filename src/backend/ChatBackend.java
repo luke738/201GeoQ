@@ -1,26 +1,22 @@
 package backend;
 
-import shared.ChatDummy;
 import shared.Connection;
 import shared.Message;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.time.Clock;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 
-public class ChatTestBackend
+public class ChatBackend
 {
     private ServerSocket ss;
     private List<Connection> connections = new ArrayList<>();
 
-    public ChatTestBackend() throws IOException
+    public ChatBackend() throws IOException
     {
         ss = new ServerSocket(4368);
     }

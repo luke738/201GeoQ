@@ -21,18 +21,12 @@ public class Leaderboard extends HttpServlet
 {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        int gameid = Integer.valueOf(request.getParameter("gameid"));
-        //Either check the gameid explicitly or move directly to getting the data for the leaderboard from the game
-        //logic. Not entirely sure how that will work, so this is where I'm going to hardcode the data in.
-        ////////DEV CODE ONLY////////
-        long t = System.nanoTime();
         Socket s = new Socket("localhost", 4367);
         Connection c = new Connection(s);
-        System.out.println(System.nanoTime()-t);
         Object obj = c.receiveObject();
         List<LeaderboardDataElement> boardData = (List<LeaderboardDataElement>)obj;
         c.close();
-        ////////END DEV. CODE////////
+
         //Sort by score then time, and drop anyone under the top 10
         boardData.sort(Comparator.comparingInt((LeaderboardDataElement o) -> -o.score).thenComparingInt(o -> o.timeTaken));
         if(boardData.size()>10) boardData = boardData.subList(0, 10);
