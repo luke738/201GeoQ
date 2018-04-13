@@ -1,5 +1,6 @@
 function initialize()
 {
+    sessionStorage.clear();
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "/GeoQ/Settings", false);
     xhttp.send();

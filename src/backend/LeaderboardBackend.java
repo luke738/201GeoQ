@@ -34,6 +34,8 @@ public class LeaderboardBackend
         boardData.add(new LeaderboardDataElement("many8", 0, 10));
         boardData.add(new LeaderboardDataElement("many9", 0, 10));
         boardData.add(new LeaderboardDataElement("many10", 0, 10));
+        boardData.add(new LeaderboardDataElement("admin", 0, Integer.MAX_VALUE));
+        boardData.add(new LeaderboardDataElement("admin2", 30, 0));
         ss = new ServerSocket(4367);
     }
 

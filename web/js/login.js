@@ -8,6 +8,7 @@ function validate()
     var valid = JSON.parse(xhttp.response);
     if(valid)
     {
+        sessionStorage.setItem("username", username);
         window.location.href = "/GeoQ/chat.html";
     }
     else
