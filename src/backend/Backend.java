@@ -38,5 +38,14 @@ public class Backend
         {
             e.printStackTrace();
         }
+        
+        try 
+        {
+        		GameTestBackend gtb = new GameTestBackend();
+        		Thread st = new Thread(gtb::start);
+        		st.start();
+        } catch (IOException e) {
+        		e.printStackTrace();
+        }
     }
 }
