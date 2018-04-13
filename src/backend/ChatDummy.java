@@ -1,6 +1,8 @@
-package shared;
+package backend;
 
 import org.apache.tomcat.websocket.WsContainerProvider;
+import shared.Connection;
+import shared.Message;
 
 import java.io.IOException;
 import java.net.Socket;

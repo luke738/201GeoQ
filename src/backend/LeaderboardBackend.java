@@ -8,12 +8,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LeaderboardTestBackend
+public class LeaderboardBackend
 {
     private List<LeaderboardDataElement> boardData;
     private ServerSocket ss;
 
-    public LeaderboardTestBackend() throws IOException
+    public LeaderboardBackend() throws IOException
     {
         boardData = new ArrayList<>();
         boardData.add(new LeaderboardDataElement("ttrojan", 0, 1234));

@@ -8,7 +8,7 @@ public class Backend
     {
         try
         {
-            LeaderboardTestBackend lbtb = new LeaderboardTestBackend();
+            LeaderboardBackend lbtb = new LeaderboardBackend();
             Thread lt = new Thread(lbtb::start);
             lt.start();
         }
@@ -19,9 +19,20 @@ public class Backend
 
         try
         {
-            ChatTestBackend ctb = new ChatTestBackend();
+            ChatBackend ctb = new ChatBackend();
             Thread ct = new Thread(ctb::start);
             ct.start();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        try
+        {
+            SettingsBackend sb = new SettingsBackend();
+            Thread st = new Thread(sb::start);
+            st.start();
         }
         catch(IOException e)
         {
