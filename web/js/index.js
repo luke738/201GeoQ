@@ -4,13 +4,13 @@ function initialize()
     xhttp.open("GET", "/GeoQ/Settings", false);
     xhttp.send();
     var settings = JSON.parse(xhttp.response);
-    console.log(xhttp.response);
     sessionStorage.setItem('startTime', settings.startTime);
     sessionStorage.setItem('loadTime', Date.now());
     sessionStorage.setItem('timeFromLoad', settings.timeToStart);
     sessionStorage.setItem('numQuest', settings.numberOfQuestions);
 
     document.getElementById("nextGame").innerHTML = "The next game starts at:<br/> " + settings.startTime;
+    document.title += " | Next game at " + settings.startTime;
     //startTimer(settings.timeToStart, document.getElementById("clock"));
 
 }

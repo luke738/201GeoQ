@@ -26,10 +26,15 @@ public class LoginValidation extends HttpServlet
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
 
-		Socket s = new Socket("localhost", 4367);
+		Socket s = new Socket("localhost", 4370);
         Connection c = new Connection(s);
         c.send(new Message(name, password));
         Boolean valid = c.receive(Boolean.class);
+
+        if(valid)
+		{
+			curr.setAttribute("username",name);
+		}
 
         PrintWriter pw = response.getWriter();
         pw.println(valid.toString());

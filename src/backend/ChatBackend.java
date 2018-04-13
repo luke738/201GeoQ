@@ -25,6 +25,7 @@ public class ChatBackend
     {
         Thread cdt = new Thread(()->{ChatDummy cd = new ChatDummy();});
         cdt.start();
+        System.out.println("ChatBackend running.");
         while(true)
         {
             try

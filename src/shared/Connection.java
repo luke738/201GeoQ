@@ -70,6 +70,7 @@ public class Connection
             {
                 close();
                 System.out.println("Incorrect type!");
+                System.out.println("Received " + obj.getClass().getTypeName() + " Expected " + type.getTypeName());
                 return null;
             }
             return type.cast(obj);

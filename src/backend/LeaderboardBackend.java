@@ -39,6 +39,7 @@ public class LeaderboardBackend
 
     public void start()
     {
+        System.out.println("LeaderboardBackend running.");
         while(true)
         {
             try

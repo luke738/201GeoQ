@@ -15,11 +15,12 @@ public class LoginBackend
 
     public LoginBackend() throws IOException
     {
-        ss = new ServerSocket();
+        ss = new ServerSocket(4370);
     }
 
     public void start()
     {
+        System.out.println("LoginBackend running.");
         while(true)
         {
             try
@@ -77,6 +78,6 @@ public class LoginBackend
         //Find out if this is a valid username from the DB
         //For now, there is one valid username hardcoded in
         password = toSHA1("adminsalt"+password);
-        return username == "admin" && password == "60419d12cbb445052a863d42e6838edc01ad994f";
+        return username.equals("admin") && password.equals("24876cfa406436c5277db086dbed32cf616771cb");
     }
 }
