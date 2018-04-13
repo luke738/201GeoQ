@@ -4,8 +4,47 @@ function initialize()
     xhttp.open("GET", "/GeoQ/Settings", false);
     xhttp.send();
     var settings = JSON.parse(xhttp.response);
+    console.log(xhttp.response);
     sessionStorage.setItem('startTime', settings.startTime);
-    sessionStorage.setItem('timeToStart', settings.timeToStart);
-    sessionStorage.setItem('numQuest', settings.numQuest);
+    sessionStorage.setItem('loadTime', Date.now());
+    sessionStorage.setItem('timeFromLoad', settings.timeToStart);
+    sessionStorage.setItem('numQuest', settings.numberOfQuestions);
 
+    document.getElementById("nextGame").innerHTML = "The next game starts at:<br/> " + settings.startTime;
+    //startTimer(settings.timeToStart, document.getElementById("clock"));
+
+}
+
+function startTimer(duration, display) {
+    var start = Date.now(),
+        diff,
+        minutes,
+        seconds,
+        hours;
+    function timer() {
+        // get the number of seconds that have elapsed since
+        // startTimer() was called
+        diff = duration - (((Date.now() - start) / 1000) | 0);
+
+        hours = (diff / 3600) | 0;
+        minutes = ((diff-hours*3600) / 60) | 0;
+        seconds = ((diff-hours*3600) % 60) | 0;
+
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.innerHTML = hours + ":" + minutes + ":" + seconds;
+        if(hours == 0 && minutes == 0 && seconds == 0)
+        {
+            display.innerHTML = "Now!";
+        }
+
+        if (diff <= 0) {
+            // add one second so that the count down starts at the full duration
+            start = Date.now() + 1000;
+        }
+    }
+    timer();
+    setInterval(timer, 1000);
 }
