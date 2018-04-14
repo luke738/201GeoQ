@@ -32,7 +32,6 @@ public class Game {
 	            {
 	                s.getBasicRemote().sendText(message.substring(7));
 	            }
-				System.out.println(message.substring(7));
 			} catch (IOException ioe) {
 				System.out.println("ioe: " + ioe.getMessage());
 			}
