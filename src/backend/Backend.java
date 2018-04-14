@@ -49,8 +49,6 @@ public class Backend
         {
             e.printStackTrace();
         }
-
-        System.out.println("All backends started.");
         
         try 
         {
@@ -60,5 +58,7 @@ public class Backend
         } catch (IOException e) {
         		e.printStackTrace();
         }
+        
+        System.out.println("All backends started.");
     }
 }
