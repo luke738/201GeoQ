@@ -38,7 +38,6 @@ public class Backend
         {
             e.printStackTrace();
         }
-<<<<<<< HEAD
 
         try
         {
@@ -52,7 +51,6 @@ public class Backend
         }
 
         System.out.println("All backends started.");
-=======
         
         try 
         {
@@ -62,6 +60,5 @@ public class Backend
         } catch (IOException e) {
         		e.printStackTrace();
         }
->>>>>>> dev-Game
     }
 }
