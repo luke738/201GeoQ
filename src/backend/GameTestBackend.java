@@ -34,7 +34,7 @@ public class GameTestBackend
                 {
                     long millis = System.currentTimeMillis();
                     long millis1 = System.currentTimeMillis();
-                    //long millis2 = System.currentTimeMillis();
+                    long millis2 = System.currentTimeMillis();
                     while(true)
                     {
                         if(System.currentTimeMillis()-millis > 10000)
@@ -46,6 +46,12 @@ public class GameTestBackend
                         		millis = System.currentTimeMillis();
                         		millis1 = System.currentTimeMillis();
                         		c.send(new Message("next", "Next Question"));
+                        }
+                        if(System.currentTimeMillis()-millis2 > 18000) {
+	                        	millis = System.currentTimeMillis();
+	                    		millis1 = System.currentTimeMillis();
+	                    		millis2 = System.currentTimeMillis();
+	                    		c.send(new Message("leaderboard", "Show Leaderboard"));
                         }
 
                     }
