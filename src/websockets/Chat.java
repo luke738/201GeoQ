@@ -21,12 +21,16 @@ public class Chat
     {
         sessions.add(session);
         session.getUserProperties().put("validUser", false);
+        username = "";
+        System.out.println("OnOpentest");
         if(!config.getUserProperties().get("httpSession").equals(0))
         {
             HttpSession httpSession = (HttpSession) config.getUserProperties().get("httpSession");
-            username = (String) httpSession.getAttribute("username");
+            if(httpSession.getAttribute("username")!=null)
+            {
+                username = (String) httpSession.getAttribute("username");
+            }
         }
-        else username = "";
     }
 
     @OnMessage

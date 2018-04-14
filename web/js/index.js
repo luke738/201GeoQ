@@ -2,13 +2,15 @@ function initialize()
 {
     sessionStorage.clear();
     var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "/GeoQ/Settings", false);
+    var key = Math.floor(Math.random()*100000000);
+    xhttp.open("GET", "/GeoQ/Settings?key="+key, false);
     xhttp.send();
     var settings = JSON.parse(xhttp.response);
     sessionStorage.setItem('startTime', settings.startTime);
     sessionStorage.setItem('loadTime', Date.now());
     sessionStorage.setItem('timeFromLoad', settings.timeToStart);
     sessionStorage.setItem('numQuest', settings.numberOfQuestions);
+    sessionStorage.setItem('key', key);
 
     document.getElementById("nextGame").innerHTML = "The next game starts at:<br/> " + settings.startTime;
     document.title += " | Next game at " + settings.startTime;

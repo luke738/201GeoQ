@@ -1,11 +1,18 @@
 package backend;
 
+import shared.GameSettings;
+
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class Backend
 {
     public static void main(String[] args)
     {
+        //Initalize DB object
+        //Get settings from DB and initalize GameState, hardcoded here:
+        GameState state = new GameState(new GameSettings(LocalDateTime.now().plusHours(1), 10));
+
         try
         {
             LeaderboardBackend lbtb = new LeaderboardBackend();
@@ -30,7 +37,7 @@ public class Backend
 
         try
         {
-            SettingsBackend sb = new SettingsBackend();
+            SettingsBackend sb = new SettingsBackend(state);
             Thread st = new Thread(sb::start);
             st.start();
         }
