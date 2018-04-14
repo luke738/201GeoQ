@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="css/QuestionPage.css">
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono" rel="stylesheet">
     <title>Street View</title>
+    <script src="js/chat.js"></script>
+    <script src="js/leaderboard.js"></script>
     <script>
-	    function connectToServer() 
+	    function connectToGame() 
 		{
 			// asychronous connection
 			socket = new WebSocket("ws://localhost:8080/GeoQ/ws");
@@ -28,8 +30,11 @@
 					document.getElementById("button3").style.background = "#A8A8A8";
 					document.getElementById("button4").style.background = "#A8A8A8";
 				}
-				else 
-				{
+				else if(event.data === "Show Leaderboard") {
+					console.log("leaderboard");
+					
+				}
+				else {
 					console.log("2" + event.data);
 					console.log(document.getElementById("button1").value);
 					if(event.data === document.getElementById("button1").value) {
@@ -119,8 +124,15 @@
     
     </script>
   </head>
-  <body onload="connectToServer()">
-  <div class="chatBox"> <span>Insert chatbox here</span></div>
+  <body onload="connectToServer();connectToGame();">
+  <div class="chatBox"> 
+  		<table id="chatHis">
+        </table>
+        <form onsubmit="return sendMessage()">
+            <input id="message" type="text" value="Type something..." name="chat"/>
+            <input type="submit"/>
+        </form>
+  </div>
     <div id="street-view"></div>
     <div class = "questionBox">
     		<form name="game">

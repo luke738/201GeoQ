@@ -24,7 +24,6 @@ public class Game {
 	
 	@OnMessage
 	public void onMessage(String message, Session session) {
-		//System.out.println(message);
 	
 		// check answer
 		if(message.substring(0, 7).equals("Time Up")) {
@@ -38,7 +37,7 @@ public class Game {
 				System.out.println("ioe: " + ioe.getMessage());
 			}
 		}
-		else if(message.equals("Next Question")) {
+		else {
 			try
 	        {
 	            for(Session s : sessionVector)
@@ -51,18 +50,6 @@ public class Game {
 	            ioe.printStackTrace();
 	        }
 		}
-			
-		/*
-		try {
-			if(message.equals(answer)) {
-				session.getBasicRemote().sendText("right");
-			} else {
-				session.getBasicRemote().sendText("wrong");
-			}
-
-		} catch (IOException ioe) {
-			System.out.println("ioe: " + ioe.getMessage());
-		} */
 	}
 	
 	@OnClose

@@ -53,6 +53,9 @@ public class GameDummy
                 if(m.header.equals("next")) {
                 		session.getAsyncRemote().sendText((String)m.body);
                 }
+                if(m.header.equals("leaderboard")) {
+                		session.getAsyncRemote().sendText((String)m.body);
+                }
             }
         }
         catch(IOException e)
