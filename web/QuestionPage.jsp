@@ -13,7 +13,7 @@
 	    function connectToGame() 
 		{
 			// asychronous connection
-			socket = new WebSocket("ws://localhost:8080/GeoQ/ws");
+			var socket = new WebSocket("ws://localhost:8080/GeoQ/ws");
 			
 			//overwriting the function in javascript
 			socket.onopen = function(event) {
@@ -141,6 +141,7 @@
 			<input type="button" class="button" id="button3" name="choice3" onclick="sendChoice3()" value="Los Angeles" />
 			<input type="button" class="button" id="button4" name="choice4" onclick="sendChoice4()" value="London" />
 		</form>
+		<div class="bottom">GeoQ</div>
     </div>
     <script>
       var panorama;

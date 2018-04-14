@@ -1,4 +1,4 @@
-var socket;
+var socketChat;
 var messageHistory = new Array(10);
 var historylength = 10;
 
@@ -10,16 +10,16 @@ function connectToServer()
         document.getElementById("chatHis").innerHTML += "<tr class=\"chatRow\"><td class=\"chatMessage\">&nbsp;</td></tr>\n";
     }
 
-    socket = new WebSocket("ws://localhost:8080/GeoQ/Chat"); //Needs to be changed for deployment to a real server
-    socket.onopen = function (ev)
+    socketChat = new WebSocket("ws://localhost:8080/GeoQ/Chat"); //Needs to be changed for deployment to a real server
+    socketChat.onopen = function (ev)
     {
         addToHistory("Connected to chat!");
     };
-    socket.onmessage = function (ev)
+    socketChat.onmessage = function (ev)
     {
         addToHistory(ev.data);
     };
-    socket.onclose = function (ev)
+    socketChat.onclose = function (ev)
     {
         addToHistory("Disconnected from chat.");
     };
@@ -28,7 +28,7 @@ function connectToServer()
 function sendMessage()
 {
     var message = document.getElementById("message").value;
-    socket.send(message);
+    socketChat.send(message);
     document.getElementById("message").value = "";
     return false;
 }
