@@ -38,6 +38,7 @@ public class Backend
         {
             e.printStackTrace();
         }
+<<<<<<< HEAD
 
         try
         {
@@ -51,5 +52,16 @@ public class Backend
         }
 
         System.out.println("All backends started.");
+=======
+        
+        try 
+        {
+        		GameTestBackend gtb = new GameTestBackend();
+        		Thread st = new Thread(gtb::start);
+        		st.start();
+        } catch (IOException e) {
+        		e.printStackTrace();
+        }
+>>>>>>> dev-Game
     }
 }
