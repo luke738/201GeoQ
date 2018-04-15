@@ -38,10 +38,11 @@ public class GameDummy
     @OnOpen
     public void onOpen(Session session)
     {
-        session.getUserProperties().put("ID", "DummySession");
         try
         {
+            session.getBasicRemote().sendText("1bce58f2a779c8479a8cb8c4ba8cc47078e475b0");
             Connection c = new Connection(new Socket("localhost", 4366));
+            c.send("dummy");
             while(true)
             {
                 Message m = c.receive(Message.class);
@@ -51,10 +52,10 @@ public class GameDummy
                     session.getAsyncRemote().sendText((String)m.body);
                 }
                 if(m.header.equals("next")) {
-                		session.getAsyncRemote().sendText((String)m.body);
+                    session.getAsyncRemote().sendText((String)m.body);
                 }
                 if(m.header.equals("leaderboard")) {
-                		session.getAsyncRemote().sendText((String)m.body);
+                    session.getAsyncRemote().sendText((String)m.body);
                 }
             }
         }
