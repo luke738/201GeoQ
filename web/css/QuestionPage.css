@@ -9,13 +9,28 @@
         padding: 0;
         overflow: hidden;
 }
+
+#container {
+	position: relative;
+	height: 80%;
+	width: 75:
+	
+}
+
 #street-view {
-  position: relative;
-  height: 80%;
+  position: absolute;
+  height: 100%;
   width: 75%;
-  top: -8.5%;
+  top: -10%;
 
 }
+
+#leaderboard {
+	position: absolute;
+	visibility: hidden;
+}
+
+
 .questionBox{
 	height: 25%;
 	width: 75%;
