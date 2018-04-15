@@ -45,13 +45,13 @@ public class GameTestBackend
                         if(System.currentTimeMillis()-millis1 > 13000) {
                         		millis = System.currentTimeMillis();
                         		millis1 = System.currentTimeMillis();
-                        		c.send(new Message("leaderboard", "Show Leaderboard"));
+                        		c.send(new Message("next", "Next Question"));
                         }
                         if(System.currentTimeMillis()-millis2 > 18000) {
 	                        	millis = System.currentTimeMillis();
 	                    		millis1 = System.currentTimeMillis();
 	                    		millis2 = System.currentTimeMillis();
-	                    		c.send(new Message("next", "Next Question"));
+	                    		c.send(new Message("leaderboard", "Show Leaderboard"));
                         }
 
                     }

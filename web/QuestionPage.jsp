@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/QuestionPage.css">
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono" rel="stylesheet">
     <title>Street View</title>
-    <script src="js/game.js"></script>
     <script src="js/chat.js"></script>
     <script src="js/leaderboard.js"></script>
     <script>
