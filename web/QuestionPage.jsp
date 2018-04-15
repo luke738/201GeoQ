@@ -11,12 +11,20 @@
     <script src="js/leaderboard.js"></script>
     <script src="js/game.js"></script>
   </head>
-  <body onload="connectToServer();connectToGame();">
+  <body onload="connectToServer();connectToGame();loadLeaderboad()">
   	<div class="header" id = "clock"></div>
   	<div id="wrapper">
 	  	<div id="container">
 	  		<div id="street-view"></div>
-	    		<div id="leaderboard"></div>
+	    		<div id="leaderboard">
+	    			<h1>Leaderboard</h1>
+		        <table id="board">
+		            <tr class="boardHeader">
+		                <th>Username</th>
+		                <th>Score</th>
+		            </tr>
+		        </table>
+	    		</div>
 	  	</div>
 	  	<div class = "questionBox">
 	    		<form name="game">
