@@ -66,10 +66,10 @@ function connectToGame()
 				console.log("1");
 				if(event.data === "Next Question") {
 					console.log("next");
-					document.getElementById("button1").style.background = "#A8A8A8";
-					document.getElementById("button2").style.background = "#A8A8A8";
-					document.getElementById("button3").style.background = "#A8A8A8";
-					document.getElementById("button4").style.background = "#A8A8A8";
+					document.getElementById("button1").style.background = "#Ff8784";
+					document.getElementById("button2").style.background = "#Ff8784";
+					document.getElementById("button3").style.background = "#Ff8784";
+					document.getElementById("button4").style.background = "#Ff8784";
 				}
 				else if(event.data === "Show Leaderboard") {
 					console.log("leaderboard");
@@ -79,28 +79,28 @@ function connectToGame()
 					console.log("2" + event.data);
 					console.log(document.getElementById("button1").value);
 					if(event.data === document.getElementById("button1").value) {
-						document.getElementById("button1").style.background = "green";
-						document.getElementById("button2").style.background = "red";
-						document.getElementById("button3").style.background = "red";
-						document.getElementById("button4").style.background = "red";
+						document.getElementById("button1").style.background = "#e0ddc5";
+						document.getElementById("button2").style.background = "#bab9b4";
+						document.getElementById("button3").style.background = "#bab9b4";
+						document.getElementById("button4").style.background = "#bab9b4";
 					}
 					else if(event.data === document.getElementById("button2").value) {
-						document.getElementById("button1").style.background = "red";
-						document.getElementById("button2").style.background = "green";
-						document.getElementById("button3").style.background = "red";
-						document.getElementById("button4").style.background = "red";
+						document.getElementById("button1").style.background = "#bab9b4";
+						document.getElementById("button2").style.background = "#e0ddc5";
+						document.getElementById("button3").style.background = "#bab9b4";
+						document.getElementById("button4").style.background = "#bab9b4";
 					}
 					else if(event.data === document.getElementById("button3").value) {
-						document.getElementById("button1").style.background = "red";
-						document.getElementById("button2").style.background = "red";
-						document.getElementById("button3").style.background = "green";
-						document.getElementById("button4").style.background = "red";
+						document.getElementById("button1").style.background = "#bab9b4";
+						document.getElementById("button2").style.background = "#bab9b4";
+						document.getElementById("button3").style.background = "#e0ddc5";
+						document.getElementById("button4").style.background = "#bab9b4";
 					}
 					else {
-						document.getElementById("button1").style.background = "red";
-						document.getElementById("button2").style.background = "red";
-						document.getElementById("button3").style.background = "red";
-						document.getElementById("button4").style.background = "green";
+						document.getElementById("button1").style.background = "#bab9b4";
+						document.getElementById("button2").style.background = "#bab9b4";
+						document.getElementById("button3").style.background = "#bab9b4";
+						document.getElementById("button4").style.background = "#e0ddc5";
 					}
 					
 					if(choice === event.data) {
@@ -121,10 +121,10 @@ function connectToGame()
 	    function sendChoice1() {
 			choice = document.game.choice1.value;
 			
-			document.getElementById("button1").style.background = "blue";
-			document.getElementById("button2").style.background = "#A8A8A8";
-			document.getElementById("button3").style.background = "#A8A8A8";
-			document.getElementById("button4").style.background = "#A8A8A8";
+			document.getElementById("button1").style.background = "white";
+			document.getElementById("button2").style.background = "#Ff8784";
+			document.getElementById("button3").style.background = "#Ff8784";
+			document.getElementById("button4").style.background = "#Ff8784";
 			
 			return false;
 		}
@@ -132,10 +132,10 @@ function connectToGame()
 		function sendChoice2() {
 			choice = document.game.choice2.value;
 			
-			document.getElementById("button1").style.background = "#A8A8A8";
-			document.getElementById("button2").style.background = "blue";
-			document.getElementById("button3").style.background = "#A8A8A8";
-			document.getElementById("button4").style.background = "#A8A8A8";
+			document.getElementById("button1").style.background = "#Ff8784";
+			document.getElementById("button2").style.background = "white";
+			document.getElementById("button3").style.background = "#Ff8784";
+			document.getElementById("button4").style.background = "#Ff8784";
 			
 			return false;
 		}
@@ -143,10 +143,10 @@ function connectToGame()
 		function sendChoice3() {
 			choice = document.game.choice3.value;
 			
-			document.getElementById("button1").style.background = "#A8A8A8";
-			document.getElementById("button2").style.background = "#A8A8A8";
-			document.getElementById("button3").style.background = "blue";
-			document.getElementById("button4").style.background = "#A8A8A8";
+			document.getElementById("button1").style.background = "#Ff8784";
+			document.getElementById("button2").style.background = "#Ff8784";
+			document.getElementById("button3").style.background = "white";
+			document.getElementById("button4").style.background = "#Ff8784";
 			
 			return false;
 		}
@@ -154,10 +154,10 @@ function connectToGame()
 		function sendChoice4() {
 			choice = document.game.choice4.value;
 			
-			document.getElementById("button1").style.background = "#A8A8A8";
-			document.getElementById("button2").style.background = "#A8A8A8";
-			document.getElementById("button3").style.background = "#A8A8A8";
-			document.getElementById("button4").style.background = "blue";
+			document.getElementById("button1").style.background = "#Ff8784";
+			document.getElementById("button2").style.background = "#Ff8784";
+			document.getElementById("button3").style.background = "#Ff8784";
+			document.getElementById("button4").style.background = "white";
 			
 			return false;
 		}
