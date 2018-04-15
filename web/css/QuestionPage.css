@@ -40,6 +40,25 @@
 	width: 100%;
 }
 
+.header{
+	font-size: 55px;
+	position: absolute;
+	background-color: rgba(192,192,192,0.7);
+	border-radius: 15px;
+	margin-left: 25px;
+    margin-top: 25px;
+	padding-left: 10px;
+	padding-right: 10px;
+	transition-duration: 0.3s;
+	color: white;
+	z-index: 2;
+}
+
+.header:hover {
+    transform: scale(1.1);
+    background-color: rgba(255,255,255,0.5);
+    transition-duration: 0.3s;
+}
 
 .questionBox{
 	height: 25%;
@@ -47,6 +66,7 @@
 	position: absolute;
 	bottom: 0;
 }
+
 .button:hover{
 	cursor: pointer;
 }
@@ -84,7 +104,7 @@
 	background-color: black;
 	color: white;
 	text-align: center;
-	font-size: 120px;
+	font-size: 90px;
 }
 
 .clear{
