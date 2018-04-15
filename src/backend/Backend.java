@@ -11,11 +11,11 @@ public class Backend
     {
         //Initalize DB object
         //Get settings from DB and initalize GameState, hardcoded here:
-        GameState state = new GameState(new GameSettings(LocalDateTime.now().plusHours(1), 10));
+        GameState state = new GameState(new GameSettings(LocalDateTime.now().plusHours(1), 24, 10));
 
         try
         {
-            LeaderboardBackend lbtb = new LeaderboardBackend();
+            LeaderboardBackend lbtb = new LeaderboardBackend(state);
             Thread lt = new Thread(lbtb::start);
             lt.start();
         }
@@ -61,7 +61,7 @@ public class Backend
         
         try 
         {
-        		GameTestBackend gtb = new GameTestBackend();
+        		GameBackend gtb = new GameBackend(state);
         		Thread st = new Thread(gtb::start);
         		st.start();
         } catch (IOException e) {

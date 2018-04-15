@@ -1,7 +1,7 @@
 package servlets;
 
 import shared.Connection;
-import shared.LeaderboardDataElement;
+import shared.User;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.sql.Time;
 import java.util.Comparator;
 import java.util.List;
 
@@ -28,19 +27,19 @@ public class Leaderboard extends HttpServlet
         Socket s = new Socket("localhost", 4367);
         Connection c = new Connection(s);
         Object obj = c.receiveObject();
-        List<LeaderboardDataElement> boardData = (List<LeaderboardDataElement>)obj;
+        List<User> boardData = (List<User>)obj;
         c.close();
 
         //Sort by score then time, and drop anyone under the top 10
-        boardData.sort(Comparator.comparingInt((LeaderboardDataElement o) -> -o.score).thenComparingInt(o -> o.timeTaken));
-        LeaderboardDataElement user = new LeaderboardDataElement("",0,0);
-        for(LeaderboardDataElement aBoardData : boardData)
+        boardData.sort(Comparator.comparingInt((User o) -> -o.score).thenComparingInt(o -> o.timeTaken));
+        User user = new User("",0,0);
+        for(User aBoardData : boardData)
         {
             if(aBoardData.username.equals(username)) user = aBoardData;
         }
         if(boardData.size()>10) boardData = boardData.subList(0, 10);
         boardData.add(user);
-        boardData.sort(Comparator.comparingInt((LeaderboardDataElement o) -> -o.score).thenComparingInt(o -> o.timeTaken));
+        boardData.sort(Comparator.comparingInt((User o) -> -o.score).thenComparingInt(o -> o.timeTaken));
         //Loop to see if any ties happened and add emoji to indicate winner/loser to user
         for(int i = 0; i < boardData.size()-1; i++)
         {

@@ -36,6 +36,7 @@ public class ChatBackend
                 Thread t = new Thread(() ->
                 {
                     long millis = System.currentTimeMillis();
+                    System.out.println(c.receive(String.class));
                     while(true)
                     {
                         if(System.currentTimeMillis()-millis > 1000)

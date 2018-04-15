@@ -1,9 +1,6 @@
 package servlets;
 
-import com.google.gson.Gson;
 import shared.Connection;
-import shared.GameSettings;
-import shared.LeaderboardDataElement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,12 +11,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.time.Instant;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAmount;
-import java.util.List;
 
 @WebServlet(name = "Settings", urlPatterns = "/Settings")
 public class Settings extends HttpServlet

@@ -7,10 +7,7 @@ import shared.Message;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URI;
-import javax.websocket.ClientEndpoint;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-import javax.websocket.WebSocketContainer;
+import javax.websocket.*;
 
 @ClientEndpoint
 public class ChatDummy

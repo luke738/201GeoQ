@@ -2,7 +2,7 @@ function initialize()
 {
     sessionStorage.clear();
     var xhttp = new XMLHttpRequest();
-    var key = Math.floor(Math.random()*100000000);
+    var key = "guest"+Math.floor(Math.random()*100000000);
     xhttp.open("GET", "/GeoQ/Settings?key="+key, false);
     xhttp.send();
     var settings = JSON.parse(xhttp.response);
