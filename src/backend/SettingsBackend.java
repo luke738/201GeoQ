@@ -15,13 +15,12 @@ import java.time.format.DateTimeFormatter;
 public class SettingsBackend
 {
     private ServerSocket ss;
-    private GameSettings settings;
+    private GameState state;
 
-    public SettingsBackend() throws IOException
+    public SettingsBackend(GameState state) throws IOException
     {
         ss = new ServerSocket(4369);
-        //Hardcode settings, game starts 1 hour from launch
-        settings = new GameSettings(LocalDateTime.now().plusHours(1), 10);
+        this.state = state;
     }
 
     public void start()
@@ -39,7 +38,7 @@ public class SettingsBackend
                     {
                         Connection c = new Connection(s);
                         //Update the time here, but can't be done with hardcoded settings
-                        c.send(settings.toJSON());
+                        c.send(state.settings.toJSON());
                     }
                     catch(IOException e)
                     {

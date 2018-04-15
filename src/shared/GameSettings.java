@@ -2,6 +2,7 @@ package shared;
 
 import com.google.gson.Gson;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,12 +11,14 @@ import java.time.temporal.ChronoUnit;
 public class GameSettings
 {
     public LocalDateTime startTime; //For page title, headers, etc
+    public int timeBetweenGames;
     public int numQuestions;
     public Gson gson;
 
-    public GameSettings(LocalDateTime startTime, int numQuestions)
+    public GameSettings(LocalDateTime startTime, int timeBetweenGames, int numQuestions)
     {
         this.startTime = startTime;
+        this.timeBetweenGames = timeBetweenGames;
         this.numQuestions = numQuestions;
         gson = new Gson();
     }
