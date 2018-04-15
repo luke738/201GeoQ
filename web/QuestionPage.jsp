@@ -13,6 +13,7 @@
   </head>
   <body onload="connectToServer();connectToGame();">
 <<<<<<< HEAD
+<<<<<<< HEAD
   <div class="chatBox"> 
   		<table id="chatHis" class="finder2">
         </table>
@@ -48,6 +49,8 @@
 
     </script>	
 =======
+=======
+>>>>>>> 20fece7e24bec6e7bfeaf3e2d5fe1b89f462c8ab
   	<div id="wrapper">
 	  	<div id="container">
 	  		<div id="street-view"></div>
@@ -76,6 +79,9 @@
 	        </form>
         </div>
  	</div>
+<<<<<<< HEAD
+>>>>>>> 20fece7e24bec6e7bfeaf3e2d5fe1b89f462c8ab
+=======
 >>>>>>> 20fece7e24bec6e7bfeaf3e2d5fe1b89f462c8ab
     <script async defer
          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdAJm9Qb2ncMLsHFZSEzDs5U07qk4jRF4
