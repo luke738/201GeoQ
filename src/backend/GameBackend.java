@@ -1,15 +1,15 @@
 package backend;
 
+import shared.Connection;
+import shared.Message;
+import shared.User;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import shared.Connection;
-import shared.Message;
-import shared.User;
 
 public class GameBackend
 {
@@ -53,7 +53,7 @@ public class GameBackend
                         long millis = System.currentTimeMillis();
                         long millis1 = System.currentTimeMillis();
                         long millis2 = System.currentTimeMillis();
-                        while(true)
+                        while(state.currentQuestion < state.questions.length)
                         {
                             if(System.currentTimeMillis() - millis > 10000)
                             {
@@ -64,21 +64,34 @@ public class GameBackend
                             {
                                 millis = System.currentTimeMillis();
                                 millis1 = System.currentTimeMillis();
-                                c.send(new Message("next", "Next Question"));
+                                c.send(new Message("leaderboard", "Show Leaderboard"));
                             }
                             if(System.currentTimeMillis() - millis2 > 18000)
                             {
                                 millis = System.currentTimeMillis();
                                 millis1 = System.currentTimeMillis();
                                 millis2 = System.currentTimeMillis();
-                                c.send(new Message("leaderboard", "Show Leaderboard"));
+                                c.send(new Message("next", "Next Question"));
                             }
 
                         }
                     }
                     else if(m.header.equals("notDummy"))
                     {
-                        state.connectedUsers.put((String) m.body, new User((String) m.body));
+                        String username = (String) m.body;
+                        state.connectedUsers.put(username, new User(username));
+                        while(state.currentQuestion < state.questions.length)
+                        {
+
+                            Message me = c.receive(Message.class);
+                            if(me.header.equals("answer"))
+                            {
+                                if(me.body.equals(state.questions[state.currentQuestion].correctAnswerString));
+                                {
+                                    state.connectedUsers.get(username).score++;
+                                }
+                            }
+                        }
                     }
                 });
                 t.start();
