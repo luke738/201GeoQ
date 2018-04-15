@@ -8,7 +8,12 @@ function initialize() {
         {
           position: {lat: 37.869260, lng: -122.254811},
           pov: {heading: 165, pitch: 0},
-          zoom: 1
+          zoom: 1,
+          disableDefaultUI: true,
+          clickToGo: false,
+          showRoadLabels: false,
+          addressControl: false,
+          fullscreenControl: false
         });
   
 }
