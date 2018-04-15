@@ -30,7 +30,14 @@ public class ChatDummy
             }
             catch(Exception e)
             {
-                //Do nothing
+                try
+                {
+                    Thread.sleep(10000); //Don't go overboard on reattempting connection
+                }
+                catch(InterruptedException ex)
+                {
+                    ex.printStackTrace();
+                }
             }
         }
     }
@@ -38,9 +45,9 @@ public class ChatDummy
     @OnOpen
     public void onOpen(Session session)
     {
-        session.getUserProperties().put("ID", "DummySession");
         try
         {
+            session.getBasicRemote().sendText("1bce58f2a779c8479a8cb8c4ba8cc47078e475b0"); //This is a SHA1 hash of Connection.java
             Connection c = new Connection(new Socket("localhost", 4368));
             while(true)
             {

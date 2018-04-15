@@ -38,6 +38,17 @@ public class Backend
         {
             e.printStackTrace();
         }
+
+        try
+        {
+            LoginBackend lb = new LoginBackend();
+            Thread st = new Thread(lb::start);
+            st.start();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
         
         try 
         {
@@ -47,5 +58,7 @@ public class Backend
         } catch (IOException e) {
         		e.printStackTrace();
         }
+        
+        System.out.println("All backends started.");
     }
 }

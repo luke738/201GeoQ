@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -21,6 +22,9 @@ public class Leaderboard extends HttpServlet
 {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        HttpSession curr = request.getSession();
+        String username = (String)curr.getAttribute("username");
+
         Socket s = new Socket("localhost", 4367);
         Connection c = new Connection(s);
         Object obj = c.receiveObject();
@@ -29,7 +33,14 @@ public class Leaderboard extends HttpServlet
 
         //Sort by score then time, and drop anyone under the top 10
         boardData.sort(Comparator.comparingInt((LeaderboardDataElement o) -> -o.score).thenComparingInt(o -> o.timeTaken));
+        LeaderboardDataElement user = new LeaderboardDataElement("",0,0);
+        for(LeaderboardDataElement aBoardData : boardData)
+        {
+            if(aBoardData.username.equals(username)) user = aBoardData;
+        }
         if(boardData.size()>10) boardData = boardData.subList(0, 10);
+        boardData.add(user);
+        boardData.sort(Comparator.comparingInt((LeaderboardDataElement o) -> -o.score).thenComparingInt(o -> o.timeTaken));
         //Loop to see if any ties happened and add emoji to indicate winner/loser to user
         for(int i = 0; i < boardData.size()-1; i++)
         {
@@ -42,6 +53,15 @@ public class Leaderboard extends HttpServlet
                 boardData.get(i).tieSymbol = "&#x23F3" + boardData.get(i).tieSymbol;
                 boardData.get(i+1).tieSymbol += "&#x231B";
             }
+
+            if(boardData.get(i).username.equals(username))
+            {
+                boardData.get(i).username = "<b>" + username + "</b>";
+            }
+        }
+        if(boardData.get(boardData.size()-1).username.equals(username))
+        {
+            boardData.get(boardData.size()-1).username = "<b>" + username + "</b>";
         }
         Gson gson = new Gson();
         String outData = gson.toJson(boardData);

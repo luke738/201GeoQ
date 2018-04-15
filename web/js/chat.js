@@ -1,25 +1,26 @@
-var socket;
-var messageHistory = new Array(10);
-var historylength = 10;
-var username = ""; //Temporary, replace with server session once sign-up/log-in is done
+var socketChat;
+var historylength = 31;
+var messageHistory = new Array(historylength);
+
 
 function connectToServer()
 {
     for(var i = 0; i<historylength; i++)
     {
-        messageHistory[i] = "";
-        document.getElementById("chatHis").innerHTML += "<tr class=\"chatRow\"><td class=\"chatMessage\"></td></tr>\n";
+        messageHistory[i] = "&nbsp;";
+        document.getElementById("chatHis").innerHTML += "<tr class=\"chatRow\"><td class=\"chatMessage\">&nbsp;</td></tr>\n";
     }
-    socket = new WebSocket("ws://localhost:8080/GeoQ/Chat"); //Needs to be changed for deployment to a real server
-    socket.onopen = function (ev)
+
+    socketChat = new WebSocket("ws://localhost:8080/GeoQ/Chat"); //Needs to be changed for deployment to a real server
+    socketChat.onopen = function (ev)
     {
         addToHistory("Connected to chat!");
     };
-    socket.onmessage = function (ev)
+    socketChat.onmessage = function (ev)
     {
         addToHistory(ev.data);
     };
-    socket.onclose = function (ev)
+    socketChat.onclose = function (ev)
     {
         addToHistory("Disconnected from chat.");
     };
@@ -28,13 +29,7 @@ function connectToServer()
 function sendMessage()
 {
     var message = document.getElementById("message").value;
-    //Anything involving username needs to change once logging in works
-    if(username == "")
-    {
-        username = message;
-        addToHistory("Your username is now " + username + ".");
-    }
-    socket.send(username + ": " + message);
+    socketChat.send(message);
     document.getElementById("message").value = "";
     return false;
 }

@@ -26,6 +26,7 @@ public class SettingsBackend
 
     public void start()
     {
+        System.out.println("SettingsBackend running.");
         while(true)
         {
             try

@@ -1,5 +1,10 @@
 package servlets;
+import shared.Connection;
+import shared.Message;
+
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +25,19 @@ public class LoginValidation extends HttpServlet
 		HttpSession curr = request.getSession();
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
-		
-	
+
+		Socket s = new Socket("localhost", 4370);
+        Connection c = new Connection(s);
+        c.send(new Message(name, password));
+        Boolean valid = c.receive(Boolean.class);
+
+        if(valid)
+		{
+			curr.setAttribute("username",name);
+		}
+
+        PrintWriter pw = response.getWriter();
+        pw.println(valid.toString());
+        pw.flush();
 	}
 }

@@ -23,11 +23,7 @@ public class GameSettings
     public String toJSON()
     {
         String sTime = startTime.format(DateTimeFormatter.ofPattern("hh:mm:ssa"))+" PST";
-        long tts = ChronoUnit.SECONDS.between(startTime, Instant.now());
-        return gson.toJson(new Object(){
-            String startTime = sTime;
-            long timeToStart = tts;
-            int numQuest = numQuestions;
-        });
+        long tts = ChronoUnit.SECONDS.between(LocalDateTime.now(), startTime);
+        return gson.toJson(new GameSettingsSimple(sTime, tts, numQuestions));
     }
 }
