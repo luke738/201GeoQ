@@ -1,5 +1,7 @@
 var panorama;
 var socket;
+var choice;
+var samp;
 
 function initialize() {
     panorama = new google.maps.StreetViewPanorama(
@@ -15,7 +17,38 @@ function initialize() {
           addressControl: false,
           fullscreenControl: false
         });
-  
+    startTimer(10, document.getElementById("clock"));
+}
+
+function startTimer(duration, display) {
+  	var pro = "2";
+    var start = Date.now(),
+        diff,
+        minutes,
+        seconds,
+        hours;
+    function timer() {
+        // get the number of seconds that have elapsed since
+        // startTimer() was called
+        diff = duration - (((Date.now() - start) / 1000) | 0);
+
+        hours = (diff / 3600) | 0;
+        minutes = ((diff-hours*3600) / 60) | 0;
+        seconds = ((diff-hours*3600) % 60) | 0;
+
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.innerHTML = seconds;
+        if(seconds == 0) {
+        		clearInterval(samp);
+        }
+    }
+    //timer(pro);
+    timer();
+	//samp = setInterval(function(){timer(samp);}, 1000);
+	samp = setInterval(timer, 1000);
 }
 
 function connectToGame() 
