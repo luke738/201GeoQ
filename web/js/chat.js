@@ -1,5 +1,5 @@
 var socketChat;
-var historylength = 14;
+var historylength = 23;
 var messageHistory = new Array(historylength);
 
 
