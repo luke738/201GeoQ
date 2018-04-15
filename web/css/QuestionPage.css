@@ -86,7 +86,7 @@
 	height: 20%;
 	border: 1px solid black;
 	text-align: center;
-	background-color: #A8A8A8;
+	background-color: #Ff8784;
 }
 .button:hover{
 	background-color: white;
@@ -179,9 +179,10 @@ input[type=text]{
 	table-layout: fixed;
 	height: 100%;
 	bottom: 0;
-	
+	font-size: 15px;
 	height: 100%;
 	width: 100%;
+	text-align: left; 
 }
 
 

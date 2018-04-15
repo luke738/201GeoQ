@@ -34,7 +34,7 @@
 				<input type="button" class="button" id="button4" name="choice4" onclick="sendChoice4()" value="London" />
 			</form>
 			<div class="bottom">GeoQ</div>
-    		</div>
+    		</div>	
   	</div>
   	
   	<div class="chatBox"> 

@@ -8,6 +8,7 @@ public class Question
     public double pitch;
     public String[] answers;
     public int correctAnswer;
+    public String correctAnswerString;
 
     public Question(double latitude, double longitude, double heading, double pitch, String[] answers, int correctAnswer)
     {
@@ -17,6 +18,7 @@ public class Question
         this.pitch = pitch;
         this.answers = answers;
         this.correctAnswer = correctAnswer;
+        correctAnswerString = answers[correctAnswer];
     }
 
     public Question withoutAnswer()
