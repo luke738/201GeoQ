@@ -10,6 +10,7 @@
     <script src="js/chat.js"></script>
     <script src="js/leaderboard.js"></script>
     <script>
+		var choice;
 	    function connectToGame() 
 		{
 			// asychronous connection
@@ -29,10 +30,17 @@
 					document.getElementById("button2").style.background = "#A8A8A8";
 					document.getElementById("button3").style.background = "#A8A8A8";
 					document.getElementById("button4").style.background = "#A8A8A8";
+					
+					//initialize();
+					//gotta call initialize() again with different parameters
+					//unhide the image
+					//hide the leaderboard
 				}
 				else if(event.data === "Show Leaderboard") {
 					console.log("leaderboard");
-					
+					//get the leaderboard from the server
+					//unhide the leaderboard
+					//hide the image
 				}
 				else {
 					console.log("2" + event.data);
@@ -63,7 +71,7 @@
 					}
 					
 					if(choice === event.data) {
-						
+						//update the user field in leaderboard
 					}
 					else {
 						
@@ -133,7 +141,8 @@
             <input type="submit"/>
         </form>
   </div>
-    <div id="street-view"></div>
+  	<div class="header" id = "clock"></div>
+    	<div id="street-view"></div>
     <div class = "questionBox">
     		<form name="game">
     			<input type="button" class="button" id="button1" name="choice1" onclick="sendChoice1()" value="Paris" />
@@ -154,8 +163,39 @@
               pov: {heading: 165, pitch: 0},
               zoom: 1
             });
-      
+      	startTimer(10, document.getElementById("clock"));
       }
+      var samp;
+      function startTimer(duration, display) {
+    	  	var pro = "2";
+    	    var start = Date.now(),
+    	        diff,
+    	        minutes,
+    	        seconds,
+    	        hours;
+    	    function timer() {
+    	        // get the number of seconds that have elapsed since
+    	        // startTimer() was called
+    	        diff = duration - (((Date.now() - start) / 1000) | 0);
+
+    	        hours = (diff / 3600) | 0;
+    	        minutes = ((diff-hours*3600) / 60) | 0;
+    	        seconds = ((diff-hours*3600) % 60) | 0;
+
+    	        hours = hours < 10 ? "0" + hours : hours;
+    	        minutes = minutes < 10 ? "0" + minutes : minutes;
+    	        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    	        display.innerHTML = seconds;
+    	        if(seconds == 0) {
+    	        		clearInterval(samp);
+    	        }
+    	    }
+    	    //timer(pro);
+    	    timer();
+    		//samp = setInterval(function(){timer(samp);}, 1000);
+    		samp = setInterval(timer, 1000);
+    	}
       
 
     </script>	

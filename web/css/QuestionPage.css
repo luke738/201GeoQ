@@ -16,11 +16,33 @@
   top: -8.5%;
 
 }
+
+.header{
+	font-size: 55px;
+	position: absolute;
+	background-color: rgba(192,192,192,0.7);
+	border-radius: 15px;
+	margin-left: 25px;
+    margin-top: 25px;
+	padding-left: 10px;
+	padding-right: 10px;
+	transition-duration: 0.3s;
+	color: white;
+	z-index: 2;
+}
+
+.header:hover {
+    transform: scale(1.1);
+    background-color: rgba(255,255,255,0.5);
+    transition-duration: 0.3s;
+}
+
 .questionBox{
 	height: 25%;
 	width: 75%;
 	margin-top: -4.25%;
 }
+
 .button:hover{
 	cursor: pointer;
 }
