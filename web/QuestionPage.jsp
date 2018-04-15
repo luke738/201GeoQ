@@ -126,11 +126,12 @@
   </head>
   <body onload="connectToServer();connectToGame();">
   <div class="chatBox"> 
-  		<table id="chatHis">
+  		<table id="chatHis" class="finder2">
         </table>
-        <form onsubmit="return sendMessage()">
-            <input id="message" type="text" value="Type something..." name="chat"/>
-            <input type="submit"/>
+        <form onsubmit="return sendMessage()"class="finder">
+            <input id="message" type="text" placeholder="Type something..." name="chat"/>
+            <!-- <input type="submit"/> -->
+ 			<input class="myButton" type ="Submit" value = "Send"></input>
         </form>
   </div>
     <div id="street-view"></div>

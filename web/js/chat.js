@@ -1,6 +1,7 @@
 var socketChat;
-var messageHistory = new Array(10);
-var historylength = 10;
+var historylength = 31;
+var messageHistory = new Array(historylength);
+
 
 function connectToServer()
 {
