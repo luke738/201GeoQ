@@ -12,7 +12,8 @@
     <script src="js/game.js"></script>
   </head>
   <body onload="connectToServer();connectToGame();">
-	  <div id="wrapper">
+  	<div class="header" id = "clock"></div>
+  	<div id="wrapper">
 	  	<div id="container">
 	  		<div id="street-view"></div>
 	    		<div id="leaderboard"></div>
