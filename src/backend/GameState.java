@@ -14,10 +14,10 @@ public class GameState
     Map<String, User> connectedUsers;
     int currentQuestion;
 
-    public GameState(GameSettings settings)
+    public GameState(GameSettings settings, Question[] questions)
     {
         this.settings = settings;
-        questions = new Question[settings.numQuestions];
+        this.questions = questions;
         connectedUsers = new TreeMap<>();
         currentQuestion = 0;
     }
