@@ -83,11 +83,7 @@ public class Database {
 			while(rs.next())
 			{
 				String data_name = rs.getString("username");
-				if(data_name.equals(name))
-				{
-					return true;
-				}
-				return false;
+				return data_name.equals(name);
 			}
 		}
 		catch (SQLException sqle) {

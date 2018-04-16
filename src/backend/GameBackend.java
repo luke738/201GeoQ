@@ -67,7 +67,7 @@ public class GameBackend
                             
                             while(state.currentQuestion < state.questions.length)
                             {
-                            		// time is up, show leaderboard
+                                // time is up, show leaderboard
                                 if(System.currentTimeMillis() - millis > 10000)
                                 {
 									millis = System.currentTimeMillis();

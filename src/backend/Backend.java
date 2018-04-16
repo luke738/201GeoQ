@@ -64,6 +64,17 @@ public class Backend
         {
             e.printStackTrace();
         }
+
+        try
+        {
+            SignupBackend lb = new SignupBackend(db);
+            Thread st = new Thread(lb::start);
+            st.start();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
         
         try 
         {
