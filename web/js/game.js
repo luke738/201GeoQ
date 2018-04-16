@@ -68,19 +68,19 @@ function connectToGame()
 		// show leaderboard, highlight correct/incorrect answers
 		if(event.data === "Show Leaderboard") {
 			showLeaderboard();
-			if(event.data === document.getElementById("button1").value) {
+			if(question.correctAnswerString === document.getElementById("button1").value) {
 				document.getElementById("button1").style.background = "#e0ddc5";
 				document.getElementById("button2").style.background = "#bab9b4";
 				document.getElementById("button3").style.background = "#bab9b4";
 				document.getElementById("button4").style.background = "#bab9b4";
 			}
-			else if(event.data === document.getElementById("button2").value) {
+			else if(question.correctAnswerString === document.getElementById("button2").value) {
 				document.getElementById("button1").style.background = "#bab9b4";
 				document.getElementById("button2").style.background = "#e0ddc5";
 				document.getElementById("button3").style.background = "#bab9b4";
 				document.getElementById("button4").style.background = "#bab9b4";
 			}
-			else if(event.data === document.getElementById("button3").value) {
+			else if(question.correctAnswerString === document.getElementById("button3").value) {
 				document.getElementById("button1").style.background = "#bab9b4";
 				document.getElementById("button2").style.background = "#bab9b4";
 				document.getElementById("button3").style.background = "#e0ddc5";
@@ -99,15 +99,25 @@ function connectToGame()
 		// change to the next street view image
 		else {
 			question = JSON.parse(event.data);
-
+			
+			// reset all the colors
 			document.getElementById("button1").style.background = "#Ff8784";
 			document.getElementById("button2").style.background = "#Ff8784";
 			document.getElementById("button3").style.background = "#Ff8784";
 			document.getElementById("button4").style.background = "#Ff8784";
-			intialize();
+			// get new street view image
+			initialize();
+			// change button values
+			document.getElementById("button1").value = question.answers[0];
+			document.getElementById("button2").value = question.answers[1];
+			document.getElementById("button3").value = question.answers[2];
+			document.getElementById("button4").value = question.answers[3];
+			
 			if(first) {
-				hideLeaderboard();
 				first = false;
+			}
+			else {
+				hideLeaderboard();
 			}
 		}
 	}
