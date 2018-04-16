@@ -18,7 +18,13 @@ public class Question
         this.pitch = pitch;
         this.answers = answers;
         this.correctAnswer = correctAnswer;
-        correctAnswerString = answers[correctAnswer];
+        
+        if (correctAnswer == -1) {
+            correctAnswerString = "";
+        }
+        else {
+            correctAnswerString = answers[correctAnswer];
+        }
     }
 
     public Question withoutAnswer()

@@ -47,16 +47,9 @@ public class GameDummy
             {
                 Message m = c.receive(Message.class);
                 if(m.header.equals("die")) break;
-                if(m.header.equals("alert"))
-                {
-                    session.getAsyncRemote().sendText((String)m.body);
-                }
-                if(m.header.equals("next")) {
-                    session.getAsyncRemote().sendText((String)m.body);
-                }
-                if(m.header.equals("leaderboard")) {
-                    session.getAsyncRemote().sendText((String)m.body);
-                }
+               
+                session.getAsyncRemote().sendText((String)m.body);
+                
             }
         }
         catch(IOException e)

@@ -58,20 +58,19 @@ public class Game
         }
         if((boolean)session.getUserProperties().get("dummy"))
         {
-            if(message.substring(0, 7).equals("Time Up"))
+         
+            try
             {
-                try
+                for(Session s : sessionVector)
                 {
-                    for(Session s : sessionVector)
-                    {
-                        s.getBasicRemote().sendText(message.substring(7));
-                    }
-                }
-                catch(IOException ioe)
-                {
-                    System.out.println("ioe: " + ioe.getMessage());
+                    s.getBasicRemote().sendText(message);
                 }
             }
+            catch(IOException ioe)
+            {
+                System.out.println("ioe: " + ioe.getMessage());
+            }
+            /*
             else
             {
                 try
@@ -85,7 +84,7 @@ public class Game
                 {
                     ioe.printStackTrace();
                 }
-            }
+            } */
         }
         else
         {
