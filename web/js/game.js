@@ -5,7 +5,29 @@ var samp;
 var question;
 var first;
 
+function startPage() {
+//    panorama = new google.maps.StreetViewPanorama(
+//        document.getElementById('street-view'),
+//        
+//        {
+//          position: {lat: question.latitude, lng: question.longitude},
+//          pov: {heading: question.heading, pitch: question.pitch},
+//          zoom: 1,
+//          disableDefaultUI: true,
+//          clickToGo: false,
+//          showRoadLabels: false,
+//          addressControl: false,
+//          fullscreenControl: false
+//        });
+//    startTimer(10, document.getElementById("clock"));
+}
+
 function initialize() {
+	console.log(question.latitude);
+	console.log(question.longitude);
+	console.log(question.heading);
+	console.log(question.pitch);
+	console.log(question.correctAnswerString);
     panorama = new google.maps.StreetViewPanorama(
         document.getElementById('street-view'),
         
@@ -97,17 +119,21 @@ function connectToGame()
 			
 		}
 		// change to the next street view image
+		else if(event.data === "End Game") {
+		}
 		else {
 			question = JSON.parse(event.data);
-
 			document.getElementById("button1").style.background = "#Ff8784";
 			document.getElementById("button2").style.background = "#Ff8784";
 			document.getElementById("button3").style.background = "#Ff8784";
 			document.getElementById("button4").style.background = "#Ff8784";
-			intialize();
+			//VALUES NEED TO BE CHANGED HERE OR IN INITIALIZE
+			initialize();
 			if(first) {
-				hideLeaderboard();
 				first = false;
+			}
+			else {
+				hideLeaderboard();
 			}
 		}
 	}

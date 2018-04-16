@@ -379,9 +379,9 @@ public class Database {
 		}
 		
 		String[] answers = {answer_a, answer_b, answer_c, answer_d};
-		Arrays.sort(answers);
-		int correctAnswer = Arrays.binarySearch(answers, correct_answer);
-		return new Question(latitude, longitude, heading, pitch, answers, correctAnswer);
+//		Arrays.sort(answers);
+//		int correctAnswer = Arrays.binarySearch(answers, correct_answer);
+		return new Question(latitude, longitude, heading, pitch, answers, correct_answer);
 	}
 	
 	

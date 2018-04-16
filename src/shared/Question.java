@@ -4,31 +4,31 @@ public class Question
 {
     public double latitude;
     public double longitude;
-    public double heading;
-    public double pitch;
+    public int heading;
+    public int pitch;
     public String[] answers;
-    public int correctAnswer;
+    //public int correctAnswer;
     public String correctAnswerString;
 
-    public Question(double latitude, double longitude, double heading, double pitch, String[] answers, int correctAnswer)
+    public Question(double latitude, double longitude, int heading, int pitch, String[] answers, String correctAnswer)
     {
         this.latitude = latitude;
         this.longitude = longitude;
         this.heading = heading;
         this.pitch = pitch;
         this.answers = answers;
-        this.correctAnswer = correctAnswer;
+        this.correctAnswerString = correctAnswer;
         
-        if (correctAnswer == -1) {
-            correctAnswerString = "";
-        }
-        else {
-            correctAnswerString = answers[correctAnswer];
-        }
+//        if (correctAnswer == -1) {
+//            correctAnswerString = "";
+//        }
+//        else {
+//            correctAnswerString = answers[correctAnswer];
+//        }
     }
 
     public Question withoutAnswer()
     {
-        return new Question(latitude, longitude, heading, pitch, answers, -1);
+        return new Question(latitude, longitude, heading, pitch, answers, "nothing");
     }
 }
