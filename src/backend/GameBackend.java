@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+
 public class GameBackend
 {
     private ServerSocket ss;
@@ -39,7 +41,8 @@ public class GameBackend
                     Message m = c.receive(Message.class);
                     if(m.header.equals("dummy"))
                     {
-                        while(true)
+                    		Gson gameGson = new Gson();
+                    		while(true)
                         {
                             while(LocalDateTime.now().isBefore(state.settings.startTime))
                             {
@@ -52,28 +55,30 @@ public class GameBackend
                                     e.printStackTrace();
                                 }
                             }
+                            
                             long millis = System.currentTimeMillis();
                             long millis1 = System.currentTimeMillis();
-                            long millis2 = System.currentTimeMillis();
+                            
+                           
+                            String questionString = gameGson.toJson(state.questions[0]);
+                            c.send(new Message("first", questionString));
+                            
                             while(state.currentQuestion < state.questions.length)
                             {
+                            		// time is up, show leaderboard
                                 if(System.currentTimeMillis() - millis > 10000)
                                 {
-                                    millis = System.currentTimeMillis();
-                                    c.send(new Message("alert", "Time UpParis"));
+									millis = System.currentTimeMillis();
+									c.send(new Message("leaderboard", "Show Leaderboard"));
                                 }
-                                if(System.currentTimeMillis() - millis1 > 13000)
+                                // go on to next question
+                                if(System.currentTimeMillis() - millis1 > 15000)
                                 {
                                     millis = System.currentTimeMillis();
                                     millis1 = System.currentTimeMillis();
-                                    c.send(new Message("leaderboard", "Show Leaderboard"));
-                                }
-                                if(System.currentTimeMillis() - millis2 > 18000)
-                                {
-                                    millis = System.currentTimeMillis();
-                                    millis1 = System.currentTimeMillis();
-                                    millis2 = System.currentTimeMillis();
-                                    c.send(new Message("next", "Next Question"));
+                                    state.currentQuestion++;
+                                    questionString = gameGson.toJson(state.questions[state.currentQuestion]);
+                                    c.send(new Message("next", questionString));
                                 }
                             }
                         }

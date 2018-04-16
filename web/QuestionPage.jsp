@@ -12,7 +12,7 @@
     <script src="js/leaderboard.js"></script>
     <script src="js/game.js"></script>
   </head>
-  <body onload="connectToServer();connectToGame();loadLeaderboad()">
+  <body onload="connectToServer();connectToGame();">
   	<div class="header" id = "clock"></div>
   	<div id="wrapper">
 	  	<div id="container">

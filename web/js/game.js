@@ -2,14 +2,16 @@ var panorama;
 var socket;
 var choice;
 var samp;
+var question;
+var first;
 
 function initialize() {
     panorama = new google.maps.StreetViewPanorama(
         document.getElementById('street-view'),
         
         {
-          position: {lat: 37.869260, lng: -122.254811},
-          pov: {heading: 165, pitch: 0},
+          position: {lat: question.latitude, lng: question.longitude},
+          pov: {heading: question.heading, pitch: question.pitch},
           zoom: 1,
           disableDefaultUI: true,
           clickToGo: false,
@@ -55,7 +57,7 @@ function connectToGame()
 {
 	// asychronous connection
 	socket = new WebSocket("ws://localhost:8080/GeoQ/ws");
-	
+	first = true;
 	//overwriting the function in javascript
 	socket.onopen = function(event) {
 		//document.getElementById("game").innerHTML += "Connected<br />";
@@ -63,22 +65,9 @@ function connectToGame()
 	
 	socket.onmessage = function(event) 
 	{
-		console.log("1");
-		if(event.data === "Next Question") {
-			console.log("next");
-			document.getElementById("button1").style.background = "#Ff8784";
-			document.getElementById("button2").style.background = "#Ff8784";
-			document.getElementById("button3").style.background = "#Ff8784";
-			document.getElementById("button4").style.background = "#Ff8784";
-			hideLeaderboard();
-		}
-		else if(event.data === "Show Leaderboard") {
-			console.log("leaderboard");
+		// show leaderboard, highlight correct/incorrect answers
+		if(event.data === "Show Leaderboard") {
 			showLeaderboard();
-		}
-		else {
-			console.log("2" + event.data);
-			console.log(document.getElementById("button1").value);
 			if(event.data === document.getElementById("button1").value) {
 				document.getElementById("button1").style.background = "#e0ddc5";
 				document.getElementById("button2").style.background = "#bab9b4";
@@ -104,14 +93,23 @@ function connectToGame()
 				document.getElementById("button4").style.background = "#e0ddc5";
 			}
 			
-			if(choice === event.data) {
-				
-			}
-			else {
-				
+			// answer checking
+			
+		}
+		// change to the next street view image
+		else {
+			question = JSON.parse(event.data);
+
+			document.getElementById("button1").style.background = "#Ff8784";
+			document.getElementById("button2").style.background = "#Ff8784";
+			document.getElementById("button3").style.background = "#Ff8784";
+			document.getElementById("button4").style.background = "#Ff8784";
+			intialize();
+			if(first) {
+				hideLeaderboard();
+				first = false;
 			}
 		}
-		//document.getElementById("mychat").innerHTML += event.data + "<br />";
 	}
 	
 	socket.onclose = function(event) {
@@ -164,13 +162,14 @@ function sendChoice4() {
 }
 
 function showLeaderboard() {
-	document.getElementById("leaderboard").style.animation = "fadeIn 1s";	
-	document.getElementById("street-view").style.blur = "5px";
+	loadLeaderboard();
+	document.getElementById("leaderboard").style.animation = "fadeIn 1s forwards";	
+	document.getElementById("street-view").style.filter = "blur(5px)";
 	
 }
 
 function hideLeaderboard() {
-	document.getElementById("leaderboard").style.animation = "fadeOut 1s";
-	document.getElementById("street-view").style.blur = "0px";
+	document.getElementById("leaderboard").style.animation = "fadeOut 1s forwards";
+	document.getElementById("street-view").style.filter = "blur(0)";
 }
 
