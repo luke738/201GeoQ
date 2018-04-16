@@ -5,6 +5,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/QuestionPage.css">
+    <link rel"stylesheet" href="">
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono" rel="stylesheet">
     <title>Street View</title>
     <script src="js/chat.js"></script>
