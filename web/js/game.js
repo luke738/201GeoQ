@@ -164,13 +164,14 @@ function sendChoice4() {
 }
 
 function showLeaderboard() {
-	document.getElementById("leaderboard").style.animation = "fadeIn 1s";	
-	document.getElementById("street-view").style.blur = "5px";
+	loadLeaderboard();
+	document.getElementById("leaderboard").style.animation = "fadeIn 1s forwards";	
+	document.getElementById("street-view").style.filter = "blur(5px)";
 	
 }
 
 function hideLeaderboard() {
-	document.getElementById("leaderboard").style.animation = "fadeOut 1s";
-	document.getElementById("street-view").style.blur = "0px";
+	document.getElementById("leaderboard").style.animation = "fadeOut 1s forwards";
+	document.getElementById("street-view").style.filter = "blur(0)";
 }
 
