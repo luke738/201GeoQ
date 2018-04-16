@@ -11,8 +11,9 @@ public class Backend
     {
         //Initalize DB object
         //Get settings from DB and initalize GameState, hardcoded here:
+    		Database db = new Database();
         GameState state = new GameState(new GameSettings(LocalDateTime.now().plusHours(1), 24, 10));
-
+        
         try
         {
             LeaderboardBackend lbtb = new LeaderboardBackend(state);
