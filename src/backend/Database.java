@@ -2,8 +2,13 @@ package backend;
 
 import shared.Question;
 
-import java.sql.*;
-import java.lang.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Database {
@@ -11,49 +16,55 @@ public class Database {
 	public String username;
 	public String pass_hash;
 	public int jeff_embs;
-
-	/*Creates a new registered user
-	 * Input: user name, hashed password
-	 * Output: (void) adds user with 0 emblems
+	private Connection conn;
+	private Statement st;
+	private PreparedStatement ps;
+	private ResultSet rs;
+	
+	
+	/*
+	 * Constructor initializes connections
 	 */
-	public void create_user(String user, String hashing)
+	public Database()
 	{
-		Connection conn = null;
-		Statement st = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
+		conn = null;
+		st = null;
+		ps = null;
+		rs = null;
+		
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/geoq_data?user=root&password=root&useSSL=false");
-			st = conn.createStatement();	
-			ps = conn.prepareStatement("INSERT INTO `geoq_data`.`users` (`username`, `password_hash`, `num_jeff_emblems`) VALUES (?, ?, '0')");
+			st = conn.createStatement();
+		}
+		
+		catch (SQLException sqle) {
+			System.out.println ("SQLException: " + sqle.getMessage());
+		} 
+		catch (ClassNotFoundException cnfe) {
+			System.out.println ("ClassNotFoundException: " + cnfe.getMessage());
+		}
+	};
+	
+	
+	/*Creates a new registered user
+	 * Input: user name, hashed password, salt value
+	 * Output: (void) adds user with 0 emblems
+	 */
+	public void create_user(String user, String hashing, String salting)
+	{
+		try 
+		{
+			ps = conn.prepareStatement("INSERT INTO `geoq_data`.`users` (`username`, `password_hash`, `password_salt`, `num_jeff_emblems`) VALUES (?, ?, ?, '0')");
 			ps.setString(1, user);
 			ps.setString(2, hashing);
+			ps.setString(3, salting);
 			ps.executeUpdate();
 		}
 		catch (SQLException sqle) {
 			System.out.println ("SQLException: " + sqle.getMessage());
-		} catch (ClassNotFoundException cnfe) {
-			System.out.println ("ClassNotFoundException: " + cnfe.getMessage());
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (st != null) {
-					st.close();
-				}
-				if (ps != null) {
-					ps.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException sqle) {
-				System.out.println("sqle: " + sqle.getMessage());
-			}
-		}
+		} 
 	};
 	
 	
@@ -64,15 +75,8 @@ public class Database {
 	 */
 	public Boolean verify_user(String name)
 	{
-		Connection conn = null;
-		Statement st = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try 
+		try
 		{
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/geoq_data?user=root&password=root&useSSL=false");
-			st = conn.createStatement();	
 			ps = conn.prepareStatement("SELECT u.username FROM users u WHERE u.username=?");
 			ps.setString(1, name);
 			rs = ps.executeQuery();
@@ -88,25 +92,6 @@ public class Database {
 		}
 		catch (SQLException sqle) {
 			System.out.println ("SQLException: " + sqle.getMessage());
-		} catch (ClassNotFoundException cnfe) {
-			System.out.println ("ClassNotFoundException: " + cnfe.getMessage());
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (st != null) {
-					st.close();
-				}
-				if (ps != null) {
-					ps.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException sqle) {
-				System.out.println("sqle: " + sqle.getMessage());
-			}
 		}
 		return false;
 	};
@@ -117,51 +102,30 @@ public class Database {
 	 * Output: password hashing associated
 	 * with the user name in database
 	 */
-	public String get_pass(String name)
+	public ArrayList<String> get_password_info(String name)
 	{
-		Connection conn = null;
-		Statement st = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
 		String hash = "";
+		String salt = "";
+		ArrayList<String> pass_info = new ArrayList<String>();
 		try 
 		{
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/geoq_data?user=root&password=root&useSSL=false");
-			st = conn.createStatement();	
-			ps = conn.prepareStatement("SELECT u.password_hash FROM users u WHERE u.username=?");
+			ps = conn.prepareStatement("SELECT u.password_hash, u.password_salt FROM users u WHERE u.username=?");
 			ps.setString(1, name);
 			rs = ps.executeQuery();
 			while(rs.next())
 			{
 				hash = rs.getString("password_hash");
+				salt = rs.getString("password_salt");
 			}
 		}
 		
 		catch (SQLException sqle) {
 			System.out.println ("SQLException: " + sqle.getMessage());
-		} catch (ClassNotFoundException cnfe) {
-			System.out.println ("ClassNotFoundException: " + cnfe.getMessage());
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (st != null) {
-					st.close();
-				}
-				if (ps != null) {
-					ps.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException sqle) {
-				System.out.println("sqle: " + sqle.getMessage());
-			}
-		}
+		} 
 		
-		return hash;	
+		pass_info.add(hash);
+		pass_info.add(salt);
+		return pass_info;	
 	};
 	
 	
@@ -171,16 +135,8 @@ public class Database {
 	public int get_num_embs(String name)
 	{
 		int num = 0;
-		Connection conn = null;
-		Statement st = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-
 		try 
 		{
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/geoq_data?user=root&password=root&useSSL=false");
-			st = conn.createStatement();	
 			ps = conn.prepareStatement("SELECT u.num_jeff_emblems FROM users u WHERE u.username=?");
 			ps.setString(1, name);
 			rs = ps.executeQuery();
@@ -192,26 +148,7 @@ public class Database {
 		
 		catch (SQLException sqle) {
 			System.out.println ("SQLException: " + sqle.getMessage());
-		} catch (ClassNotFoundException cnfe) {
-			System.out.println ("ClassNotFoundException: " + cnfe.getMessage());
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (st != null) {
-					st.close();
-				}
-				if (ps != null) {
-					ps.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException sqle) {
-				System.out.println("sqle: " + sqle.getMessage());
-			}
-		}
+		} 
 		return num;
 	};
 	
@@ -223,15 +160,8 @@ public class Database {
 	 */
 	public void update_jeff_embs(String name, int num)
 	{
-		Connection conn = null;
-		Statement st = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
 		try 
 		{
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/geoq_data?user=root&password=root&useSSL=false");
-			st = conn.createStatement();	
 			ps = conn.prepareStatement("UPDATE `geoq_data`.`users` SET `num_jeff_emblems`=? WHERE `username`=?");
 			ps.setInt(1, num);
 			ps.setString(2, name);
@@ -239,26 +169,7 @@ public class Database {
 		}
 		catch (SQLException sqle) {
 			System.out.println ("SQLException: " + sqle.getMessage());
-		} catch (ClassNotFoundException cnfe) {
-			System.out.println ("ClassNotFoundException: " + cnfe.getMessage());
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (st != null) {
-					st.close();
-				}
-				if (ps != null) {
-					ps.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException sqle) {
-				System.out.println("sqle: " + sqle.getMessage());
-			}
-		}
+		} 
 	};
 	
 	
@@ -267,44 +178,20 @@ public class Database {
 	 * Input: user name, new password hashing
 	 * Output: (void) updates user's password hashing
 	 */
-	public void update_pass_hash(String name, String p_hash)
+	public void update_password_info(String name, String p_hash, String p_salt)
 	{
-		Connection conn = null;
-		Statement st = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
 		try 
 		{
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/geoq_data?user=root&password=root&useSSL=false");
-			st = conn.createStatement();	
-			ps = conn.prepareStatement("UPDATE `geoq_data`.`users` SET `password_hash`=? WHERE `username`=?");
+			ps = conn.prepareStatement("UPDATE `geoq_data`.`users` SET `password_hash`=?, `password_salt`=? WHERE `username`=?");
 			ps.setString(1, p_hash);
-			ps.setString(2, name);
+			ps.setString(2, p_salt);
+			ps.setString(3, name);
 			ps.executeUpdate();
 		}
 		catch (SQLException sqle) {
 			System.out.println ("SQLException: " + sqle.getMessage());
-		} catch (ClassNotFoundException cnfe) {
-			System.out.println ("ClassNotFoundException: " + cnfe.getMessage());
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (st != null) {
-					st.close();
-				}
-				if (ps != null) {
-					ps.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException sqle) {
-				System.out.println("sqle: " + sqle.getMessage());
-			}
-		}
+		} 
+			
 	};
 	
 	
@@ -315,11 +202,6 @@ public class Database {
 	 */
 	public Question retreive_image_data(int image_ID)
 	{
-		Connection conn = null;
-		Statement st = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		
 		int image_id = 0;
 		double latitude = 0;
 		double longitude = 0;
@@ -334,9 +216,6 @@ public class Database {
 		
 		try 
 		{
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/geoq_data?user=root&password=root&useSSL=false");
-			st = conn.createStatement();	
 			ps = conn.prepareStatement("SELECT * FROM image_data WHERE image_id=?");
 			ps.setInt(1, image_ID);
 			rs = ps.executeQuery();
@@ -357,9 +236,17 @@ public class Database {
 		
 		catch (SQLException sqle) {
 			System.out.println ("SQLException: " + sqle.getMessage());
-		} catch (ClassNotFoundException cnfe) {
-			System.out.println ("ClassNotFoundException: " + cnfe.getMessage());
-		} finally {
+		}
+
+		String[] answers = {answer_a, answer_b, answer_c, answer_d};
+		Arrays.sort(answers);
+		int correctAnswer = Arrays.binarySearch(answers, correct_answer);
+		return new Question(latitude, longitude, heading, pitch, answers, correctAnswer);
+	}
+	
+	
+	public void close_connections()
+	{
 			try {
 				if (rs != null) {
 					rs.close();
@@ -376,14 +263,8 @@ public class Database {
 			} catch (SQLException sqle) {
 				System.out.println("sqle: " + sqle.getMessage());
 			}
-		}
 		
-		String[] answers = {answer_a, answer_b, answer_c, answer_d};
-		Arrays.sort(answers);
-		int correctAnswer = Arrays.binarySearch(answers, correct_answer);
-		return new Question(latitude, longitude, heading, pitch, answers, correctAnswer);
-	}
-	
+	};
 	
 	/*
 	 * Purely for testing purposes
@@ -391,15 +272,52 @@ public class Database {
 	public static void main (String[] args) {
 		
 		Database sample = new Database();
+		/*Testing create_user*/
+		sample.create_user("Kiran", "kieranhash", "kieransalt");
 		
-		String pass = sample.get_pass("K");
-		System.out.println(pass);
-		int num = sample.get_num_embs("miller");
+		/*Testing verify_user*/
+		Boolean my_bool = sample.verify_user("Kiran");
+		if(my_bool)
+		{
+			System.out.println("true, it worked");
+		}
+		else
+		{
+			System.out.println("false, failed");
+		}
+		my_bool = sample.verify_user("Luke");
+		if(my_bool)
+		{
+			System.out.println("true, failed");
+		}
+		else
+		{
+			System.out.println("false, it worked");
+		}
+		
+		
+		/*Testing get_password_info*/
+		ArrayList<String> pass = sample.get_password_info("Kiran");
+		System.out.println(pass.get(0));
+		System.out.println(pass.get(1));
+		
+		//*Testing get_num_emblems*/
+		int num = sample.get_num_embs("Kiran");
 		System.out.println(num);
-		sample.update_pass_hash("miller", "millhash");
 		
-		Question my_image = sample.retreive_image_data(1);
+		/*Testing update_jeff_embs*/
+		sample.update_jeff_embs("Kiran", 2);
+		num = sample.get_num_embs("Kiran");
+		System.out.println(num);
+		
+		/*Testing update_password_info*/
+		sample.update_password_info("Kiran", "millhash", "myhash");
+		
+		/*Testing image retrieval*/
+		Question my_image = sample.retreive_image_data(2);
 		System.out.println(my_image.correctAnswerString);
+		
+		sample.close_connections();
 		return;
 	}
 }
