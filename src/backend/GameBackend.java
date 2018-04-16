@@ -18,11 +18,13 @@ public class GameBackend
     private ServerSocket ss;
     private List<Connection> connections = new ArrayList<>();
     private GameState state;
+    private Database db;
 
-    public GameBackend(GameState state) throws IOException
+    public GameBackend(GameState state, Database db) throws IOException
     {
         this.state = state;
         ss = new ServerSocket(4366);
+        this.db = db;
     }
 
     public void start()
@@ -86,7 +88,21 @@ public class GameBackend
                     else if(m.header.equals("notDummy"))
                     {
                         String username = (String) m.body;
-                        state.connectedUsers.put(username, new User(username));
+                        if(db.verify_user(username))
+                        {
+                            int numEmblems = db.get_num_embs(username);
+                            String emblem = "<img src=\"img/jeffrey_miller.jpg\" height=\"16\" width=\"16\"/>";
+                            StringBuilder uemb = new StringBuilder();
+                            for(int i = 0; i < numEmblems; i++)
+                            {
+                                uemb.append(emblem);
+                            }
+                            state.connectedUsers.put(username, new User(username, uemb.toString()));
+                        }
+                        else
+                        {
+                            state.connectedUsers.put(username, new User(username));
+                        }
                         while(state.currentQuestion < state.questions.length)
                         {
 

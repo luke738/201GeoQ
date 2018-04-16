@@ -67,7 +67,7 @@ public class Backend
         
         try 
         {
-        		GameBackend gtb = new GameBackend(state);
+        		GameBackend gtb = new GameBackend(state, db);
         		Thread st = new Thread(gtb::start);
         		st.start();
         } catch (IOException e) {
