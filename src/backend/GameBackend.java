@@ -47,8 +47,8 @@ public class GameBackend
                     		Gson gameGson = new Gson();
                     		while(true)
                         {
-//                            while(LocalDateTime.now().isBefore(state.settings.startTime))
-//                            {
+                            while(LocalDateTime.now().isBefore(state.settings.startTime))
+                            {
                                 try
                                 {
                                     Thread.sleep(7000);
@@ -57,7 +57,7 @@ public class GameBackend
                                 {
                                     e.printStackTrace();
                                 }
-//                            }
+                            }
                             
                             long millis = System.currentTimeMillis();
                             long millis1 = System.currentTimeMillis();

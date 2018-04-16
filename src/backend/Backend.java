@@ -19,7 +19,7 @@ public class Backend
     			curr = db.retreive_image_data(i);
     			questions[i-1] = curr;
     		}
-        GameState state = new GameState(new GameSettings(LocalDateTime.now().plusHours(1), 24, 10), questions);
+        GameState state = new GameState(new GameSettings(LocalDateTime.now().plusSeconds(15), 24, 10), questions);
         
         try
         {
