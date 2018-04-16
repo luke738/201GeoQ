@@ -1,5 +1,10 @@
 package servlets;
+import shared.Connection;
+import shared.Message;
+
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +26,23 @@ public class SignupValidation extends HttpServlet
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
 		String confirmPassword = request.getParameter("confirmpassword");
-		
-	
+
+		String resp = "passNoMatch";
+		if(password.equals(confirmPassword))
+		{
+			Socket s = new Socket("localhost", 4370);
+			Connection c = new Connection(s);
+			c.send(new Message(name, password));
+			resp = c.receive(String.class);
+
+			if(resp.equals("accept"))
+			{
+				curr.setAttribute("username", name);
+			}
+		}
+
+		PrintWriter pw = response.getWriter();
+		pw.println(resp);
+		pw.flush();
 	}
 }
