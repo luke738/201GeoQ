@@ -1,6 +1,7 @@
 package backend;
 
 import shared.GameSettings;
+import shared.Question;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -11,8 +12,15 @@ public class Backend
     {
         //Initalize DB object
         //Get settings from DB and initalize GameState, hardcoded here:
-        GameState state = new GameState(new GameSettings(LocalDateTime.now().plusHours(1), 24, 10));
-
+    		Database db = new Database();
+    		Question[] questions = new Question[10];
+    		Question curr = null;
+    		for(int i=1;i<11;i++) {
+    			curr = db.retreive_image_data(i);
+    			questions[i-1] = curr;
+    		}
+        GameState state = new GameState(new GameSettings(LocalDateTime.now().plusHours(1), 24, 10), questions);
+        
         try
         {
             LeaderboardBackend lbtb = new LeaderboardBackend(state);
