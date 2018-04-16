@@ -13,9 +13,11 @@ import java.util.Map;
 public class LoginBackend
 {
     private ServerSocket ss;
+    private Database db;
 
-    public LoginBackend() throws IOException
+    public LoginBackend(Database db) throws IOException
     {
+        this.db = db;
         ss = new ServerSocket(4370);
     }
 
@@ -29,11 +31,9 @@ public class LoginBackend
                 Socket s = ss.accept();
                 Thread t = new Thread(() ->
                 {
-                    //Return hardcoded settings
                     try
                     {
                         Connection c = new Connection(s);
-                        //Update the time here, but can't be done with hardcoded settings
                         Message m = c.receive(Message.class);
                         c.send(validate(m.header, (String)m.body));
                     }
@@ -78,7 +78,9 @@ public class LoginBackend
     {
         //Find out if this is a valid username from the DB
         //For now, there are two valid usernames hardcoded in
-        password = toSHA1("adminsalt"+password);
-        return (username.equals("admin") || username.equals("admin2")) && password.equals("24876cfa406436c5277db086dbed32cf616771cb");
+        if(!db.verify_user(username)) return false;
+        String[] userPwInfo = db.get_pass(username);
+        password = toSHA1(userPwInfo[1]+password);
+        return password.equals(userPwInfo[0]);
     }
 }
