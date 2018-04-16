@@ -3,6 +3,7 @@ package backend;
 import shared.Connection;
 import shared.Message;
 import shared.User;
+import sun.print.resources.serviceui;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -46,17 +47,17 @@ public class GameBackend
                     		Gson gameGson = new Gson();
                     		while(true)
                         {
-                            while(LocalDateTime.now().isBefore(state.settings.startTime))
-                            {
+//                            while(LocalDateTime.now().isBefore(state.settings.startTime))
+//                            {
                                 try
                                 {
-                                    Thread.sleep(500);
+                                    Thread.sleep(7000);
                                 }
                                 catch(InterruptedException e)
                                 {
                                     e.printStackTrace();
                                 }
-                            }
+//                            }
                             
                             long millis = System.currentTimeMillis();
                             long millis1 = System.currentTimeMillis();
@@ -79,8 +80,16 @@ public class GameBackend
                                     millis = System.currentTimeMillis();
                                     millis1 = System.currentTimeMillis();
                                     state.currentQuestion++;
-                                    questionString = gameGson.toJson(state.questions[state.currentQuestion]);
-                                    c.send(new Message("next", questionString));
+                                    if(state.currentQuestion == state.questions.length) {
+                                    		System.out.println("this is not done");
+                                    		state.currentQuestion = 0;
+                                    		c.send(new Message("end", "End Game"));
+                                    		break;
+                                    }
+                                    else {
+                                    		questionString = gameGson.toJson(state.questions[state.currentQuestion]);
+                                    		c.send(new Message("next", questionString));
+                                    }
                                 }
                             }
                         }

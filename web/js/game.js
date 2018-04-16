@@ -5,7 +5,29 @@ var samp;
 var question;
 var first;
 
+function startPage() {
+//    panorama = new google.maps.StreetViewPanorama(
+//        document.getElementById('street-view'),
+//        
+//        {
+//          position: {lat: question.latitude, lng: question.longitude},
+//          pov: {heading: question.heading, pitch: question.pitch},
+//          zoom: 1,
+//          disableDefaultUI: true,
+//          clickToGo: false,
+//          showRoadLabels: false,
+//          addressControl: false,
+//          fullscreenControl: false
+//        });
+//    startTimer(10, document.getElementById("clock"));
+}
+
 function initialize() {
+	console.log(question.latitude);
+	console.log(question.longitude);
+	console.log(question.heading);
+	console.log(question.pitch);
+	console.log(question.correctAnswerString);
     panorama = new google.maps.StreetViewPanorama(
         document.getElementById('street-view'),
         
@@ -68,19 +90,19 @@ function connectToGame()
 		// show leaderboard, highlight correct/incorrect answers
 		if(event.data === "Show Leaderboard") {
 			showLeaderboard();
-			if(event.data === document.getElementById("button1").value) {
+			if(question.correctAnswerString === document.getElementById("button1").value) {
 				document.getElementById("button1").style.background = "#e0ddc5";
 				document.getElementById("button2").style.background = "#bab9b4";
 				document.getElementById("button3").style.background = "#bab9b4";
 				document.getElementById("button4").style.background = "#bab9b4";
 			}
-			else if(event.data === document.getElementById("button2").value) {
+			else if(question.correctAnswerString === document.getElementById("button2").value) {
 				document.getElementById("button1").style.background = "#bab9b4";
 				document.getElementById("button2").style.background = "#e0ddc5";
 				document.getElementById("button3").style.background = "#bab9b4";
 				document.getElementById("button4").style.background = "#bab9b4";
 			}
-			else if(event.data === document.getElementById("button3").value) {
+			else if(question.correctAnswerString === document.getElementById("button3").value) {
 				document.getElementById("button1").style.background = "#bab9b4";
 				document.getElementById("button2").style.background = "#bab9b4";
 				document.getElementById("button3").style.background = "#e0ddc5";
@@ -97,17 +119,27 @@ function connectToGame()
 			
 		}
 		// change to the next street view image
+		else if(event.data === "End Game") {
+		}
 		else {
 			question = JSON.parse(event.data);
-
 			document.getElementById("button1").style.background = "#Ff8784";
 			document.getElementById("button2").style.background = "#Ff8784";
 			document.getElementById("button3").style.background = "#Ff8784";
 			document.getElementById("button4").style.background = "#Ff8784";
-			intialize();
+			
+			document.getElementById("button1").value = question.answers[0];
+			document.getElementById("button2").value = question.answers[1];
+			document.getElementById("button3").value = question.answers[2];
+			document.getElementById("button4").value = question.answers[3];
+			// get new street view image
+			initialize();
+			// change button values
 			if(first) {
-				hideLeaderboard();
 				first = false;
+			}
+			else {
+				hideLeaderboard();
 			}
 		}
 	}

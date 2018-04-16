@@ -52,7 +52,7 @@
  	</div>
     <script async defer
          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdAJm9Qb2ncMLsHFZSEzDs5U07qk4jRF4
-         &callback=initialize">
+         &callback=startPage">
     </script>
   </body>
 </html>

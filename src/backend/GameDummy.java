@@ -51,6 +51,7 @@ public class GameDummy
                 session.getAsyncRemote().sendText((String)m.body);
                 
             }
+            c.close();
         }
         catch(IOException e)
         {

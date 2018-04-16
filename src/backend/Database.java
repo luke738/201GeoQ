@@ -262,7 +262,6 @@ public class Database {
 			} catch (SQLException sqle) {
 				System.out.println("sqle: " + sqle.getMessage());
 			}
-		
 	};
 	
 	/*

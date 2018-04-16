@@ -4,13 +4,13 @@ public class Question
 {
     public double latitude;
     public double longitude;
-    public double heading;
-    public double pitch;
+    public int heading;
+    public int pitch;
     public String[] answers;
     public int correctAnswer;
     public String correctAnswerString;
 
-    public Question(double latitude, double longitude, double heading, double pitch, String[] answers, int correctAnswer)
+    public Question(double latitude, double longitude, int heading, int pitch, String[] answers, int correctAnswer)
     {
         this.latitude = latitude;
         this.longitude = longitude;
