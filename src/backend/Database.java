@@ -1,51 +1,17 @@
 package backend;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import shared.Question;
+
+import java.sql.*;
 import java.lang.*;
-
-
-class Image {
-
-	public int image_id;
-	public double latitude;
-	public double longitude;
-	public int heading;
-	public int pitch;
-	public String answer_a;
-	public String answer_b;
-	public String answer_c;
-	public String answer_d;
-	public String correct_answer;
-	
-	
-	public Image(int im, double lat, double lon, int head, int pit,
-		String a, String b, String c, String d, String correct)
-	{
-		this.image_id = im;
-		this.latitude = lat;
-		this.longitude = lon;
-		this.heading = head;
-		this.pitch = pit;
-		this.answer_a = a;
-		this.answer_b = b;
-		this.answer_c = c;
-		this.answer_d = d;
-		this.correct_answer = correct;
-	};
-};
+import java.util.Arrays;
 
 public class Database {
 	
 	public String username;
 	public String pass_hash;
 	public int jeff_embs;
-	
-	
+
 	/*Creates a new registered user
 	 * Input: user name, hashed password
 	 * Output: (void) adds user with 0 emblems
@@ -347,7 +313,7 @@ public class Database {
 	 * Input: image ID
 	 * Output: image object
 	 */
-	public Image retreive_image_data(int image_ID)
+	public Question retreive_image_data(int image_ID)
 	{
 		Connection conn = null;
 		Statement st = null;
@@ -412,11 +378,10 @@ public class Database {
 			}
 		}
 		
-		
-		Image image = new Image(image_id, latitude, longitude, heading, pitch,
-			answer_a, answer_b, answer_c, answer_d, correct_answer);
-		
-		return image;
+		String[] answers = {answer_a, answer_b, answer_c, answer_d};
+		Arrays.sort(answers);
+		int correctAnswer = Arrays.binarySearch(answers, correct_answer);
+		return new Question(latitude, longitude, heading, pitch, answers, correctAnswer);
 	}
 	
 	
@@ -433,8 +398,8 @@ public class Database {
 		System.out.println(num);
 		sample.update_pass_hash("miller", "millhash");
 		
-		Image my_image = sample.retreive_image_data(1);
-		System.out.println(my_image.correct_answer);
+		Question my_image = sample.retreive_image_data(1);
+		System.out.println(my_image.correctAnswerString);
 		return;
 	}
 }
