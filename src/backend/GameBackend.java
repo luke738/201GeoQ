@@ -45,8 +45,8 @@ public class GameBackend
                     		Gson gameGson = new Gson();
                     		while(true)
                         {
-//                            while(LocalDateTime.now().isBefore(state.settings.startTime))
-//                            {
+                            while(LocalDateTime.now().isBefore(state.settings.startTime))
+                            {
                                 try
                                 {
                                     Thread.sleep(7000);
@@ -55,7 +55,7 @@ public class GameBackend
                                 {
                                     e.printStackTrace();
                                 }
-//                            }
+                            }
                             
                             long millis = System.currentTimeMillis();
                             long millis1 = System.currentTimeMillis();
@@ -79,7 +79,6 @@ public class GameBackend
                                     millis1 = System.currentTimeMillis();
                                     state.currentQuestion++;
                                     if(state.currentQuestion == state.questions.length) {
-                                    		System.out.println("this is not done");
                                     		state.currentQuestion = 0;
                                     		c.send(new Message("end", "End Game"));
                                     		break;
