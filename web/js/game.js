@@ -3,6 +3,7 @@ var socket;
 var choice;
 var samp;
 var question;
+var first;
 
 function initialize() {
     panorama = new google.maps.StreetViewPanorama(
@@ -56,7 +57,7 @@ function connectToGame()
 {
 	// asychronous connection
 	socket = new WebSocket("ws://localhost:8080/GeoQ/ws");
-	
+	first = true;
 	//overwriting the function in javascript
 	socket.onopen = function(event) {
 		//document.getElementById("game").innerHTML += "Connected<br />";
@@ -104,7 +105,10 @@ function connectToGame()
 			document.getElementById("button3").style.background = "#Ff8784";
 			document.getElementById("button4").style.background = "#Ff8784";
 			intialize();
-			hideLeaderboard();
+			if(first) {
+				hideLeaderboard();
+				first = false;
+			}
 		}
 	}
 	
