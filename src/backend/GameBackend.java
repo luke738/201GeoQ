@@ -39,41 +39,43 @@ public class GameBackend
                     Message m = c.receive(Message.class);
                     if(m.header.equals("dummy"))
                     {
-                        while(LocalDateTime.now().isBefore(state.settings.startTime))
+                        while(true)
                         {
-                            try
+                            while(LocalDateTime.now().isBefore(state.settings.startTime))
                             {
-                                Thread.sleep(500);
+                                try
+                                {
+                                    Thread.sleep(500);
+                                }
+                                catch(InterruptedException e)
+                                {
+                                    e.printStackTrace();
+                                }
                             }
-                            catch(InterruptedException e)
+                            long millis = System.currentTimeMillis();
+                            long millis1 = System.currentTimeMillis();
+                            long millis2 = System.currentTimeMillis();
+                            while(state.currentQuestion < state.questions.length)
                             {
-                                e.printStackTrace();
+                                if(System.currentTimeMillis() - millis > 10000)
+                                {
+                                    millis = System.currentTimeMillis();
+                                    c.send(new Message("alert", "Time UpParis"));
+                                }
+                                if(System.currentTimeMillis() - millis1 > 13000)
+                                {
+                                    millis = System.currentTimeMillis();
+                                    millis1 = System.currentTimeMillis();
+                                    c.send(new Message("leaderboard", "Show Leaderboard"));
+                                }
+                                if(System.currentTimeMillis() - millis2 > 18000)
+                                {
+                                    millis = System.currentTimeMillis();
+                                    millis1 = System.currentTimeMillis();
+                                    millis2 = System.currentTimeMillis();
+                                    c.send(new Message("next", "Next Question"));
+                                }
                             }
-                        }
-                        long millis = System.currentTimeMillis();
-                        long millis1 = System.currentTimeMillis();
-                        long millis2 = System.currentTimeMillis();
-                        while(state.currentQuestion < state.questions.length)
-                        {
-                            if(System.currentTimeMillis() - millis > 10000)
-                            {
-                                millis = System.currentTimeMillis();
-                                c.send(new Message("alert", "Time UpParis"));
-                            }
-                            if(System.currentTimeMillis() - millis1 > 13000)
-                            {
-                                millis = System.currentTimeMillis();
-                                millis1 = System.currentTimeMillis();
-                                c.send(new Message("leaderboard", "Show Leaderboard"));
-                            }
-                            if(System.currentTimeMillis() - millis2 > 18000)
-                            {
-                                millis = System.currentTimeMillis();
-                                millis1 = System.currentTimeMillis();
-                                millis2 = System.currentTimeMillis();
-                                c.send(new Message("next", "Next Question"));
-                            }
-
                         }
                     }
                     else if(m.header.equals("notDummy"))
@@ -92,6 +94,7 @@ public class GameBackend
                                 }
                             }
                         }
+                        c.close();
                     }
                 });
                 t.start();

@@ -22,7 +22,10 @@
 	position: absolute;
 	height: 75%;
 	width: 100%;
-	
+
+	display:flex;
+	justify-content:center;
+	align-items:center;
 }
 
 #street-view {
@@ -30,14 +33,18 @@
   visibility: visible;
   height: 100%;
   width: 100%;
-
 }
 
 #leaderboard {
 	position: absolute;
-	visibility: hidden;
-	height: 100%;
-	width: 100%;
+	opacity: 0;
+		
+	z-index: 2;
+	width: 25vw;
+    padding: 15px 35px 45px;
+	background-color: #fff;
+	border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 15px;
 }
 
 .header{
@@ -176,6 +183,39 @@ input[type=text]{
 	text-align: left; 
 }
 
+@keyframes fadeIn {
+  0%   { opacity:0; }
+  100% { opacity:1; }
+}
+@-o-keyframes fadeIn{
+  0%   { opacity:0; }
+  100% { opacity:1; }
+}
+@-moz-keyframes fadeIn{
+  0%   { opacity:0; }
+  100% { opacity:1; }
+}
+@-webkit-keyframes fadeIn{
+  0%   { opacity:0; }
+  100% { opacity:1; }
+}
+
+@keyframes fadeOut {
+  0%   { opacity:1; }
+  100% { opacity:0; }
+}
+@-o-keyframes fadeOut{
+  0%   { opacity:1; }
+  100% { opacity:0; }
+}
+@-moz-keyframes fadeOut{
+  0%   { opacity:1; }
+  100% { opacity:0; }
+}
+@-webkit-keyframes fadeOut{
+  0%   { opacity:1; }
+  100% { opacity:0; }
+}
 
 
 

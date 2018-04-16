@@ -5,6 +5,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/QuestionPage.css">
+    <link rel"stylesheet" href="">
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono" rel="stylesheet">
     <title>Street View</title>
     <script src="js/chat.js"></script>
@@ -16,7 +17,15 @@
   	<div id="wrapper">
 	  	<div id="container">
 	  		<div id="street-view"></div>
-	    		<div id="leaderboard"></div>
+	    		<div id="leaderboard">
+	    			<h1>Leaderboard</h1>
+		        <table id="board">
+		            <tr class="boardHeader">
+		                <th>Username</th>
+		                <th>Score</th>
+		            </tr>
+		        </table>
+	    		</div>
 	  	</div>
 	  	<div class = "questionBox">
 	    		<form name="game">

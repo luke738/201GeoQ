@@ -5,6 +5,7 @@ function loadLeaderboard()
     xhttp.send();
     var results = JSON.parse(xhttp.response);
     var board = document.getElementById("board");
+    board.innerHTML = "";
     for(var i = 0; i<results.length; i++)
     {
         board.innerHTML += " <tr class=\"boardRow\"> " +
