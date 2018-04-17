@@ -70,21 +70,6 @@ public class Game
             {
                 System.out.println("ioe: " + ioe.getMessage());
             }
-            /*
-            else
-            {
-                try
-                {
-                    for(Session s : sessionVector)
-                    {
-                        s.getBasicRemote().sendText(message);
-                    }
-                }
-                catch(IOException ioe)
-                {
-                    ioe.printStackTrace();
-                }
-            } */
         }
         else
         {
