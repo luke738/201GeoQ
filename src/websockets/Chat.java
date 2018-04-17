@@ -56,6 +56,7 @@ public class Chat
             }
             for(Session s : sessions)
             {
+                System.out.println(message);
                 if((boolean)session.getUserProperties().get("dummy")) s.getBasicRemote().sendText(message);
                 else s.getBasicRemote().sendText(username + ": " + message);
             }

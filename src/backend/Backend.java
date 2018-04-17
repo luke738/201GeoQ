@@ -57,6 +57,18 @@ public class Backend
         try
         {
             LoginBackend lb = new LoginBackend(db);
+
+            Thread st = new Thread(lb::start);
+            st.start();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        try
+        {
+            SignupBackend lb = new SignupBackend(db);
             Thread st = new Thread(lb::start);
             st.start();
         }
@@ -67,7 +79,7 @@ public class Backend
         
         try 
         {
-        		GameBackend gtb = new GameBackend(state);
+        		GameBackend gtb = new GameBackend(state, db);
         		Thread st = new Thread(gtb::start);
         		st.start();
         } catch (IOException e) {

@@ -30,7 +30,8 @@ public class SignupValidation extends HttpServlet
 		String resp = "passNoMatch";
 		if(password.equals(confirmPassword))
 		{
-			Socket s = new Socket("localhost", 4370);
+			System.out.println();
+			Socket s = new Socket("localhost", 4371);
 			Connection c = new Connection(s);
 			c.send(new Message(name, password));
 			resp = c.receive(String.class);
@@ -42,7 +43,7 @@ public class SignupValidation extends HttpServlet
 		}
 
 		PrintWriter pw = response.getWriter();
-		pw.println(resp);
+		pw.print(resp);
 		pw.flush();
 	}
 }
