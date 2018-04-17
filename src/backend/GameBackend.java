@@ -51,7 +51,7 @@ public class GameBackend
                             {
                                 try
                                 {
-                                    Thread.sleep(7000);
+                                    Thread.sleep(500);
                                 }
                                 catch(InterruptedException e)
                                 {
