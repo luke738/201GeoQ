@@ -19,13 +19,13 @@ public class SignupBackend
     public SignupBackend(Database db) throws IOException
     {
         this.db = db;
-        ss = new ServerSocket(4370);
+        ss = new ServerSocket(4371);
         sr = new SecureRandom();
     }
 
     public void start()
     {
-        System.out.println("LoginBackend running.");
+        System.out.println("SignupBackend running.");
         while(true)
         {
             try
@@ -80,7 +80,7 @@ public class SignupBackend
     {
         //Find out if this is a valid username from the DB
         //For now, there are two valid usernames hardcoded in
-        if(!db.verify_user(username)) return "userExists";
+        if(db.verify_user(username)) return "userExists";
         char[] alphabet = "1234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm".toCharArray();
         StringBuilder salt = new StringBuilder();
         for(int i = 0; i < 8; i++)

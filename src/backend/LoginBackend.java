@@ -8,6 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Map;
 
 public class LoginBackend
@@ -79,9 +80,8 @@ public class LoginBackend
         //Find out if this is a valid username from the DB
         //For now, there are two valid usernames hardcoded in
         if(!db.verify_user(username)) return false;
-        //String[] userPwInfo = db.get_pass(username);
-        //password = toSHA1(userPwInfo[1]+password);
-        //return password.equals(userPwInfo[0]);
-        return true;
+        List<String> userPwInfo = db.get_password_info(username);
+        password = toSHA1(userPwInfo.get(1)+password);
+        return password.equals(userPwInfo.get(0));
     }
 }
