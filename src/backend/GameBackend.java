@@ -52,7 +52,6 @@ public class GameBackend
                             {
                                 try
                                 {
-                                    System.out.println("Sleeping until "+state.settings.startTime.toEpochSecond(ZoneOffset.ofHours(-7)));
                                     Thread.sleep(500);
                                 }
                                 catch(InterruptedException e)
@@ -76,7 +75,7 @@ public class GameBackend
 									c.send(new Message("leaderboard", "Show Leaderboard"));
                                 }
                                 // go on to next question
-                                if(System.currentTimeMillis() - millis1 > state.settings.leaderboardTime*1000)
+                                if(System.currentTimeMillis() - millis1 > (state.settings.questionTime+state.settings.leaderboardTime)*1000)
                                 {
                                     millis = System.currentTimeMillis();
                                     millis1 = System.currentTimeMillis();
