@@ -15,22 +15,13 @@ body {
 }
 
 .wrapper {
-	text-align: center;
-    margin-top: 30px;
+    margin-top: 30vh;
     display: inline-block;
-    width: 15vw;
-    padding: 0px 0px 10px;
+    width: 25vw;
+    padding: 15px 35px 45px;
     background-color: #fff;
     border: 1px solid rgba(0,0,0,0.1);
     border-radius: 15px;
-}
-
-.header{
-	text-align: center;
-	font-size: 65px;
-	margin-top: 50px;
-	color: white;
-	display: block;
 }
 
 #chatHis {

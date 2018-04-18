@@ -37,6 +37,7 @@ public class SettingsBackend
                     try
                     {
                         Connection c = new Connection(s);
+                        //Update the time here, but can't be done with hardcoded settings
                         c.send(state.settings.toJSON());
                     }
                     catch(IOException e)

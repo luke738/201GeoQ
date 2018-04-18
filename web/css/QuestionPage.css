@@ -84,23 +84,19 @@
 	height: 20%;
 	border: 1px solid black;
 	text-align: center;
-	background-color: #bab9b4;
+	background-color: #Ff8784;
 }
 .button:hover{
-	background-color: #A2E8DD;
+	background-color: white;
 }
-
-button disabled {
-	background-color: black;
-}
-
 .chatBox{
 	float: right;
 	position: relative;
 	bottom: 0;
+	border: 1px solid black;
 	width: 25%;
 	height: 100%;
-	background-color: #627C85;
+	background-color: black;
 	font-size: 15px;
 	text-align: center;
 	color: white;
@@ -112,11 +108,10 @@ button disabled {
 	float: left;
 	width: 100%;
 	height: 80%;
-	background-color: #627C85;
+	background-color: black;
 	color: white;
 	text-align: center;
 	font-size: 90px;
-
 }
 
 .clear{
@@ -131,6 +126,7 @@ button disabled {
 }
 
 #submit {
+	border-top: 1px solid white;
 	float: left;
 	width: 100%;
 	height: 20%;

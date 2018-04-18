@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,23 +44,24 @@ public class GameBackend
                     Message m = c.receive(Message.class);
                     if(m.header.equals("dummy"))
                     {
-                        Gson gameGson = new Gson();
-                        while(true)
+                    		Gson gameGson = new Gson();
+                    		while(true)
                         {
                             while(LocalDateTime.now().isBefore(state.settings.startTime))
                             {
                                 try
                                 {
-                                    Thread.sleep(100);
+                                    Thread.sleep(7000);
                                 }
                                 catch(InterruptedException e)
                                 {
                                     e.printStackTrace();
                                 }
                             }
-
+                            
                             long millis = System.currentTimeMillis();
                             long millis1 = System.currentTimeMillis();
+                            
                            
                             String questionString = gameGson.toJson(state.questions[0]);
                             c.send(new Message("first", questionString));
@@ -69,13 +69,13 @@ public class GameBackend
                             while(state.currentQuestion < state.questions.length)
                             {
                                 // time is up, show leaderboard
-                                if(System.currentTimeMillis() - millis > state.settings.questionTime*1000)
+                                if(System.currentTimeMillis() - millis > 10000)
                                 {
 									millis = System.currentTimeMillis();
 									c.send(new Message("leaderboard", "Show Leaderboard"));
                                 }
                                 // go on to next question
-                                if(System.currentTimeMillis() - millis1 > (state.settings.questionTime+state.settings.leaderboardTime)*1000)
+                                if(System.currentTimeMillis() - millis1 > 15000)
                                 {
                                     millis = System.currentTimeMillis();
                                     millis1 = System.currentTimeMillis();
@@ -90,21 +90,6 @@ public class GameBackend
                                     		c.send(new Message("next", questionString));
                                     }
                                 }
-                            }
-
-                            state.settings.startTime = state.settings.startTime.plusHours(state.settings.timeBetweenGames);
-                            db.update_settings(state.settings);
-                            if(state.connectedUsers.size()>0)
-                            {
-                                User winner = new ArrayList<>(state.connectedUsers.values()).get(0);
-                                for(User u : state.connectedUsers.values())
-                                {
-                                    if(winner.score < u.score)
-                                    {
-                                        winner = u;
-                                    }
-                                }
-                                db.update_jeff_embs(winner.username, db.get_num_embs(winner.username) + 1);
                             }
                         }
                     }
@@ -128,32 +113,18 @@ public class GameBackend
                         }
                         while(state.currentQuestion < state.questions.length)
                         {
+
                             Message me = c.receive(Message.class);
                             if(me.header.equals("answer"))
                             {
-                                if((Integer)me.body==state.questions[state.currentQuestion].correctAnswer)
+                                if(me.body.equals(state.questions[state.currentQuestion].correctAnswerString));
                                 {
                                     state.connectedUsers.get(username).score++;
                                 }
                             }
                         }
+                        c.close();
                     }
-                    else if(m.header.equals("lobbyPull"))
-                    {
-                        while(LocalDateTime.now().isBefore(state.settings.startTime))
-                        {
-                            try
-                            {
-                                Thread.sleep(100);
-                            }
-                            catch(InterruptedException e)
-                            {
-                                e.printStackTrace();
-                            }
-                        }
-                        c.send("go");
-                    }
-                    c.close();
                 });
                 t.start();
             }
