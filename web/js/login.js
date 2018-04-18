@@ -9,7 +9,7 @@ function validate()
     if(valid)
     {
         sessionStorage.setItem("username", username);
-        window.location.href = "/GeoQ/chat.html";
+        window.location.href = "/GeoQ/lobby.html";
     }
     else
     {

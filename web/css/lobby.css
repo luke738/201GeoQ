@@ -25,6 +25,14 @@ body {
     border-radius: 15px;
 }
 
+.header{
+	text-align: center;
+	font-size: 65px;
+	margin-top: 50px;
+	color: white;
+	display: block;
+}
+
 #chatHis {
     width: 100%;
 }

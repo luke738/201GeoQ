@@ -279,7 +279,7 @@ public class Database {
 		
 		int hour = start_time/10000;
 		int minute = (start_time/100) % (hour*100);
-		int second = start_time % (hour*10000);
+		int second = start_time % ((hour*10000) + (minute * 100));
 		System.out.println(hour);
 		System.out.println(minute);
 		System.out.println(second);

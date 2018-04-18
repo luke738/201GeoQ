@@ -58,6 +58,14 @@ public class GameBackend
                                     e.printStackTrace();
                                 }
                             }
+                            try
+                            {
+                                Thread.sleep(7000);
+                            }
+                            catch(InterruptedException e)
+                            {
+                                e.printStackTrace();
+                            }
                             
                             long millis = System.currentTimeMillis();
                             long millis1 = System.currentTimeMillis();
@@ -117,7 +125,7 @@ public class GameBackend
                             Message me = c.receive(Message.class);
                             if(me.header.equals("answer"))
                             {
-                                if(me.body.equals(state.questions[state.currentQuestion].correctAnswerString));
+                                if(me.body.equals(state.questions[state.currentQuestion].correctAnswerString))
                                 {
                                     state.connectedUsers.get(username).score++;
                                 }
