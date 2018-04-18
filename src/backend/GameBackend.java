@@ -52,7 +52,7 @@ public class GameBackend
                             {
                                 try
                                 {
-                                    Thread.sleep(500);
+                                    Thread.sleep(100);
                                 }
                                 catch(InterruptedException e)
                                 {
@@ -137,8 +137,23 @@ public class GameBackend
                                 }
                             }
                         }
-                        c.close();
                     }
+                    else if(m.header.equals("lobbyPull"))
+                    {
+                        while(LocalDateTime.now().isBefore(state.settings.startTime))
+                        {
+                            try
+                            {
+                                Thread.sleep(100);
+                            }
+                            catch(InterruptedException e)
+                            {
+                                e.printStackTrace();
+                            }
+                        }
+                        c.send("go");
+                    }
+                    c.close();
                 });
                 t.start();
             }
