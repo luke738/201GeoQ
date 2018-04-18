@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,7 @@ public class GameBackend
                             {
                                 try
                                 {
+                                    System.out.println("Sleeping until "+state.settings.startTime.toEpochSecond(ZoneOffset.ofHours(-7)));
                                     Thread.sleep(500);
                                 }
                                 catch(InterruptedException e)
@@ -93,16 +95,18 @@ public class GameBackend
 
                             state.settings.startTime = state.settings.startTime.plusHours(state.settings.timeBetweenGames);
                             db.update_settings(state.settings);
-
-                            User winner = new ArrayList<>(state.connectedUsers.values()).get(0);
-                            for(User u : state.connectedUsers.values())
+                            if(state.connectedUsers.size()>0)
                             {
-                                if(winner.score<u.score)
+                                User winner = new ArrayList<>(state.connectedUsers.values()).get(0);
+                                for(User u : state.connectedUsers.values())
                                 {
-                                    winner = u;
+                                    if(winner.score < u.score)
+                                    {
+                                        winner = u;
+                                    }
                                 }
+                                db.update_jeff_embs(winner.username, db.get_num_embs(winner.username) + 1);
                             }
-                            db.update_jeff_embs(winner.username, db.get_num_embs(winner.username)+1);
                         }
                     }
                     else if(m.header.equals("notDummy"))

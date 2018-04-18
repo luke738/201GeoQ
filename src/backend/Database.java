@@ -284,14 +284,14 @@ public class Database {
     {
         try
         {
-            ps = conn.prepareStatement("UPDATE `geoq_data`.`management` SET `start_time`=?, `num_questions`=?, `game_interval_time`=?, `question_time`=?, `leaderboard_time`=?, WHERE `primarykey`=?");
+            ps = conn.prepareStatement("UPDATE `geoq_data`.`management` SET `start_time`=?, `num_questions`=?, `game_interval_time`=?, `question_time`=?, `leaderboard_time`=? WHERE `primarykey`=?");
             ps.setInt(1, (int)settings.startTime.toEpochSecond(ZoneOffset.ofHours(-7)));
             ps.setInt(2, settings.numQuestions);
             ps.setInt(3, settings.timeBetweenGames);
             ps.setInt(4, settings.questionTime);
             ps.setInt(5, settings.leaderboardTime);
             ps.setInt(6, 1);
-            rs = ps.executeQuery();
+            ps.executeUpdate();
         }
         catch (SQLException sqle) {
             System.out.println ("SQLException: " + sqle.getMessage());
