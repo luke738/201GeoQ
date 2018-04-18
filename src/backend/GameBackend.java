@@ -69,13 +69,13 @@ public class GameBackend
                             while(state.currentQuestion < state.questions.length)
                             {
                                 // time is up, show leaderboard
-                                if(System.currentTimeMillis() - millis > 10000)
+                                if(System.currentTimeMillis() - millis > 15000)
                                 {
 									millis = System.currentTimeMillis();
 									c.send(new Message("leaderboard", "Show Leaderboard"));
                                 }
                                 // go on to next question
-                                if(System.currentTimeMillis() - millis1 > 15000)
+                                if(System.currentTimeMillis() - millis1 > 20000)
                                 {
                                     millis = System.currentTimeMillis();
                                     millis1 = System.currentTimeMillis();
