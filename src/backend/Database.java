@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -251,7 +252,7 @@ public class Database {
 	 * Input: image ID
 	 * Output: image object
 	 */
-	public GameSettings retreive_settings(int day)
+	public GameSettings retreive_settings()
 	{
 		int start_time = 0;
 		int num_questions = 0;
@@ -277,14 +278,7 @@ public class Database {
 			System.out.println ("SQLException: " + sqle.getMessage());
 		}
 		
-		int hour = start_time/10000;
-		int minute = (start_time/100) % (hour*100);
-		int second = start_time % (hour*10000);
-		System.out.println(hour);
-		System.out.println(minute);
-		System.out.println(second);
-		
-		return new GameSettings(LocalDateTime.of(2018, 4, day, hour, minute, second), game_interval_time, num_questions, question_time, leaderboard_time);
+		return new GameSettings(LocalDateTime.ofEpochSecond(start_time, 0, ZoneOffset.ofHours(-7)), game_interval_time, num_questions, question_time, leaderboard_time);
 	}
 	
 	public void close_connections()
@@ -357,7 +351,7 @@ public class Database {
 //		/*Testing image retrieval*/
 //		Question my_image = sample.retreive_image_data(2);
 //		System.out.println(my_image.correctAnswerString);
-		GameSettings gs = sample.retreive_settings(17);
+		GameSettings gs = sample.retreive_settings();
 		
 		sample.close_connections();
 		return;

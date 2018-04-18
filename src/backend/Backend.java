@@ -6,8 +6,6 @@ import shared.Question;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
-
 public class Backend
 {
     public static void main(String[] args)
@@ -15,7 +13,7 @@ public class Backend
         //Initalize DB object
         //Get settings from DB and initalize GameState, hardcoded here:
     		Database db = new Database();
-    		GameSettings gs = db.retreive_settings(LocalDateTime.now().getDayOfMonth());
+    		GameSettings gs = db.retreive_settings();
     		Question[] questions = new Question[10];
     		Question curr = null;
     		for(int i=1;i<11;i++) {
