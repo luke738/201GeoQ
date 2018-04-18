@@ -38,7 +38,7 @@ public class Database {
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/geoq_data?user=root&password=root&useSSL=false");
+			conn = DriverManager.getConnection("jdbc:mysql://aakuj1ax0ezed6.cv6g30ag31vd.us-east-2.rds.amazonaws.com:3306/geoq_data?user=root&password=password123&useSSL=false");
 			st = conn.createStatement();
 		}
 		
