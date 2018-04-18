@@ -1,6 +1,5 @@
 var panorama;
 var socket;
-var choice;
 var samp;
 var question;
 var first;
@@ -41,7 +40,7 @@ function initialize() {
           addressControl: false,
           fullscreenControl: false
         });
-    startTimer(10, document.getElementById("clock"));
+    samp = startTimer(sessionStorage.getItem('questionTime'), document.getElementById("clock"));
 }
 
 function startTimer(duration, display) {
@@ -83,7 +82,7 @@ function connectToGame()
 	//overwriting the function in javascript
 	socket.onopen = function(event) {
 		//document.getElementById("game").innerHTML += "Connected<br />";
-	}
+	};
 	
 	socket.onmessage = function(event) 
 	{
@@ -114,7 +113,7 @@ function connectToGame()
 				document.getElementById("button3").style.background = "#bab9b4";
 				document.getElementById("button4").style.background = "#28AF6E";
 			}
-			
+
 			document.getElementById("button1").disabled = true;
 			document.getElementById("button2").disabled = true;
 			document.getElementById("button3").disabled = true;
@@ -123,7 +122,7 @@ function connectToGame()
 			document.getElementById("button2").style.color = "black";
 			document.getElementById("button3").style.color = "black";
 			document.getElementById("button4").style.color = "black";
-			
+
 			// answer checking
 			
 		}
@@ -132,12 +131,12 @@ function connectToGame()
 		}
 		else {
 			question = JSON.parse(event.data);
-			
+
 			document.getElementById("button1").disabled = false;
 			document.getElementById("button2").disabled = false;
 			document.getElementById("button3").disabled = false;
 			document.getElementById("button4").disabled = false;
-			
+
 			document.getElementById("button1").style.background = "#bab9b4";
 			document.getElementById("button2").style.background = "#bab9b4";
 			document.getElementById("button3").style.background = "#bab9b4";
@@ -155,6 +154,8 @@ function connectToGame()
 			}
 			else {
 				hideLeaderboard();
+				clearInterval(samp);
+				samp = startTimer(sessionStorage.getItem('questionTime'), document.getElementById("clock"));
 			}
 		}
 	}
@@ -165,46 +166,38 @@ function connectToGame()
 }
 
 function sendChoice1() {
-	choice = document.game.choice1.value;
-	
 	document.getElementById("button1").style.background = "#A2E8DD";
 	document.getElementById("button2").style.background = "#bab9b4";
 	document.getElementById("button3").style.background = "#bab9b4";
 	document.getElementById("button4").style.background = "#bab9b4";
-	
+	socket.send("0");
 	return false;
 }
 
 function sendChoice2() {
-	choice = document.game.choice2.value;
-	
 	document.getElementById("button1").style.background = "#bab9b4";
 	document.getElementById("button2").style.background = "#A2E8DD";
 	document.getElementById("button3").style.background = "#bab9b4";
 	document.getElementById("button4").style.background = "#bab9b4";
-	
+	socket.send("1");
 	return false;
 }
 
 function sendChoice3() {
-	choice = document.game.choice3.value;
-	
 	document.getElementById("button1").style.background = "#bab9b4";
 	document.getElementById("button2").style.background = "#bab9b4";
 	document.getElementById("button3").style.background = "#A2E8DD";
 	document.getElementById("button4").style.background = "#bab9b4";
-	
+	socket.send("2");
 	return false;
 }
 
 function sendChoice4() {
-	choice = document.game.choice4.value;
-	
 	document.getElementById("button1").style.background = "#bab9b4";
 	document.getElementById("button2").style.background = "#bab9b4";
 	document.getElementById("button3").style.background = "#bab9b4";
 	document.getElementById("button4").style.background = "#A2E8DD";
-	
+	socket.send("3");
 	return false;
 }
 

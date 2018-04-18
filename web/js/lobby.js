@@ -1,23 +1,21 @@
 function initialize()
 {
-    sessionStorage.clear();
+    var startTime = sessionStorage.getItem('startTime');
+    var loadTime = sessionStorage.getItem('loadTime');
+    var timeFromLoad = sessionStorage.getItem('timeFromLoad');
+    var numQuest = sessionStorage.getItem('numQuest');
+    var key = sessionStorage.getItem('key');
+    
+    document.getElementById("nextGame").innerHTML = "The next game starts at:<br/> " + startTime;
+    document.title += " | Next game at " + startTime;
+    startTimer(timeFromLoad-(Date.now()-loadTime), document.getElementById("clock"));
+
     var xhttp = new XMLHttpRequest();
-    var key = "guest"+Math.floor(Math.random()*100000000);
-    xhttp.open("GET", "/GeoQ/Settings?key="+key, false);
-    xhttp.send();
-    var settings = JSON.parse(xhttp.response);
-    sessionStorage.setItem('startTime', settings.startTime);
-    sessionStorage.setItem('loadTime', Date.now());
-    sessionStorage.setItem('timeFromLoad', settings.timeToStart);
-    sessionStorage.setItem('numQuest', settings.numberOfQuestions);
-    sessionStorage.setItem('key', key);
-    sessionStorage.setItem('questionTime', settings.questionTime);
-    sessionStorage.setItem('leaderboardTime', settings.leaderboardTime);
-
-    document.getElementById("nextGame").innerHTML = "The next game starts at:<br/> " + settings.startTime;
-    document.title += " | Next game at " + settings.startTime;
-    //startTimer(settings.timeToStart, document.getElementById("clock"));
-
+    xhttp.open("GET", "GeoQ/LobbyPull", true);
+    xhttp.onreadystatechange = function(ev) {
+        if(ev.data = "go") window.location.href = "/GeoQ/QuestionPage.html";
+        else xhttp.open("GET", "GeoQ/LobbyPull", true);
+    }
 }
 
 function startTimer(duration, display) {
@@ -42,7 +40,7 @@ function startTimer(duration, display) {
         display.innerHTML = hours + ":" + minutes + ":" + seconds;
         if(hours == 0 && minutes == 0 && seconds == 0)
         {
-            display.innerHTML = "Now!";
+        		window.location.href = "/GeoQ/QuestionPage.html";
         }
 
 //        if (diff <= 0) {
