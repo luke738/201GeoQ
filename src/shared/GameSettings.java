@@ -31,6 +31,6 @@ public class GameSettings
     {
         String sTime = startTime.format(DateTimeFormatter.ofPattern("hh:mm:ssa"))+" PST";
         long tts = ChronoUnit.SECONDS.between(LocalDateTime.now(), startTime);
-        return gson.toJson(new GameSettingsSimple(sTime, tts, numQuestions));
+        return gson.toJson(new GameSettingsSimple(sTime, tts, numQuestions, questionTime, leaderboardTime));
     }
 }

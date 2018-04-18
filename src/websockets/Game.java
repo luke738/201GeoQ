@@ -100,6 +100,7 @@ public class Game
                     e.printStackTrace();
                 }
             }
+            c.send(new Message("answer",Integer.valueOf(message)));
         }
 	}
 	

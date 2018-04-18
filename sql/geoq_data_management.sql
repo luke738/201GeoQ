@@ -18,17 +18,20 @@
 --
 -- Table structure for table `management`
 --
-USE geoq_data;
+
 DROP TABLE IF EXISTS `management`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `management` (
+  `primarykey` int(4) NOT NULL AUTO_INCREMENT,
   `start_time` int(20) DEFAULT NULL,
   `num_questions` int(10) DEFAULT NULL,
   `game_interval_time` int(10) DEFAULT NULL,
   `question_time` int(10) DEFAULT NULL,
-  `leaderboard_time` int(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This table contains management settings.';
+  `leaderboard_time` int(10) DEFAULT NULL,
+  PRIMARY KEY (`primarykey`),
+  UNIQUE KEY `key_UNIQUE` (`primarykey`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='This table contains management settings.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +40,7 @@ CREATE TABLE `management` (
 
 LOCK TABLES `management` WRITE;
 /*!40000 ALTER TABLE `management` DISABLE KEYS */;
-INSERT INTO `management`  VALUES (1524027600, 10, 24, 20, 5);
+INSERT INTO `management` VALUES (1,1524070800,10,24,20,5);
 /*!40000 ALTER TABLE `management` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-15 22:24:26
+-- Dump completed on 2018-04-18  6:51:55

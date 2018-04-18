@@ -44,8 +44,8 @@ public class GameBackend
                     Message m = c.receive(Message.class);
                     if(m.header.equals("dummy"))
                     {
-                    		Gson gameGson = new Gson();
-                    		while(true)
+                        Gson gameGson = new Gson();
+                        while(true)
                         {
                             while(LocalDateTime.now().isBefore(state.settings.startTime))
                             {
@@ -58,10 +58,9 @@ public class GameBackend
                                     e.printStackTrace();
                                 }
                             }
-                            
+
                             long millis = System.currentTimeMillis();
                             long millis1 = System.currentTimeMillis();
-                            
                            
                             String questionString = gameGson.toJson(state.questions[0]);
                             c.send(new Message("first", questionString));
@@ -69,13 +68,13 @@ public class GameBackend
                             while(state.currentQuestion < state.questions.length)
                             {
                                 // time is up, show leaderboard
-                                if(System.currentTimeMillis() - millis > 10000)
+                                if(System.currentTimeMillis() - millis > state.settings.questionTime*1000)
                                 {
 									millis = System.currentTimeMillis();
 									c.send(new Message("leaderboard", "Show Leaderboard"));
                                 }
                                 // go on to next question
-                                if(System.currentTimeMillis() - millis1 > 15000)
+                                if(System.currentTimeMillis() - millis1 > state.settings.leaderboardTime*1000)
                                 {
                                     millis = System.currentTimeMillis();
                                     millis1 = System.currentTimeMillis();
@@ -91,6 +90,19 @@ public class GameBackend
                                     }
                                 }
                             }
+
+                            state.settings.startTime = state.settings.startTime.plusHours(state.settings.timeBetweenGames);
+                            db.update_settings(state.settings);
+
+                            User winner = new ArrayList<>(state.connectedUsers.values()).get(0);
+                            for(User u : state.connectedUsers.values())
+                            {
+                                if(winner.score<u.score)
+                                {
+                                    winner = u;
+                                }
+                            }
+                            db.update_jeff_embs(winner.username, db.get_num_embs(winner.username)+1);
                         }
                     }
                     else if(m.header.equals("notDummy"))
@@ -113,11 +125,10 @@ public class GameBackend
                         }
                         while(state.currentQuestion < state.questions.length)
                         {
-
                             Message me = c.receive(Message.class);
                             if(me.header.equals("answer"))
                             {
-                                if(me.body.equals(state.questions[state.currentQuestion].correctAnswerString));
+                                if((Integer)me.body==state.questions[state.currentQuestion].correctAnswer)
                                 {
                                     state.connectedUsers.get(username).score++;
                                 }

@@ -273,13 +273,30 @@ public class Database {
 				leaderboard_time = rs.getInt("leaderboard_time");
 			}
 		}
-		
 		catch (SQLException sqle) {
 			System.out.println ("SQLException: " + sqle.getMessage());
 		}
 		
 		return new GameSettings(LocalDateTime.ofEpochSecond(start_time, 0, ZoneOffset.ofHours(-7)), game_interval_time, num_questions, question_time, leaderboard_time);
 	}
+
+	public void update_settings(GameSettings settings)
+    {
+        try
+        {
+            ps = conn.prepareStatement("UPDATE `geoq_data`.`management` SET `start_time`=?, `num_questions`=?, `game_interval_time`=?, `question_time`=?, `leaderboard_time`=?, WHERE `primarykey`=?");
+            ps.setInt(1, (int)settings.startTime.toEpochSecond(ZoneOffset.ofHours(-7)));
+            ps.setInt(2, settings.numQuestions);
+            ps.setInt(3, settings.timeBetweenGames);
+            ps.setInt(4, settings.questionTime);
+            ps.setInt(5, settings.leaderboardTime);
+            ps.setInt(6, 1);
+            rs = ps.executeQuery();
+        }
+        catch (SQLException sqle) {
+            System.out.println ("SQLException: " + sqle.getMessage());
+        }
+    }
 	
 	public void close_connections()
 	{
