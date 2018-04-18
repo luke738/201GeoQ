@@ -57,7 +57,6 @@ public class Backend
         try
         {
             LoginBackend lb = new LoginBackend(db);
-
             Thread st = new Thread(lb::start);
             st.start();
         }
