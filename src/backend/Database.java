@@ -1,6 +1,8 @@
 package backend;
 
+import shared.GameSettings;
 import shared.Question;
+import websockets.Game;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -243,6 +247,56 @@ public class Database {
 		return new Question(latitude, longitude, heading, pitch, answers, correctAnswer);
 	}
 	
+	/*
+	 * Retrieves an image object with all necessary data
+	 * Input: image ID
+	 * Output: image object
+	 */
+	public GameSettings retreive_settings()
+	{
+		int start_time = 0;
+		int num_questions = 0;
+		int game_interval_time = 0;
+		int question_time = 0;
+		int leaderboard_time = 0;
+		
+		try 
+		{
+			ps = conn.prepareStatement("SELECT * FROM management");
+			rs = ps.executeQuery();
+			while(rs.next())
+			{
+				start_time = rs.getInt("start_time");
+				num_questions = rs.getInt("num_questions");
+				game_interval_time = rs.getInt("game_interval_time");
+				question_time = rs.getInt("question_time");
+				leaderboard_time = rs.getInt("leaderboard_time");
+			}
+		}
+		catch (SQLException sqle) {
+			System.out.println ("SQLException: " + sqle.getMessage());
+		}
+		
+		return new GameSettings(LocalDateTime.ofEpochSecond(start_time, 0, ZoneOffset.ofHours(-7)), game_interval_time, num_questions, question_time, leaderboard_time);
+	}
+
+	public void update_settings(GameSettings settings)
+    {
+        try
+        {
+            ps = conn.prepareStatement("UPDATE `geoq_data`.`management` SET `start_time`=?, `num_questions`=?, `game_interval_time`=?, `question_time`=?, `leaderboard_time`=? WHERE `primarykey`=?");
+            ps.setInt(1, (int)settings.startTime.toEpochSecond(ZoneOffset.ofHours(-7)));
+            ps.setInt(2, settings.numQuestions);
+            ps.setInt(3, settings.timeBetweenGames);
+            ps.setInt(4, settings.questionTime);
+            ps.setInt(5, settings.leaderboardTime);
+            ps.setInt(6, 1);
+            ps.executeUpdate();
+        }
+        catch (SQLException sqle) {
+            System.out.println ("SQLException: " + sqle.getMessage());
+        }
+    }
 	
 	public void close_connections()
 	{
@@ -271,49 +325,50 @@ public class Database {
 		
 		Database sample = new Database();
 		/*Testing create_user*/
-		sample.create_user("Kiran", "kieranhash", "kieransalt");
-		
-		/*Testing verify_user*/
-		Boolean my_bool = sample.verify_user("Kiran");
-		if(my_bool)
-		{
-			System.out.println("true, it worked");
-		}
-		else
-		{
-			System.out.println("false, failed");
-		}
-		my_bool = sample.verify_user("Luke");
-		if(my_bool)
-		{
-			System.out.println("true, failed");
-		}
-		else
-		{
-			System.out.println("false, it worked");
-		}
-		
-		
-		/*Testing get_password_info*/
-		ArrayList<String> pass = sample.get_password_info("Kiran");
-		System.out.println(pass.get(0));
-		System.out.println(pass.get(1));
-		
-		//*Testing get_num_emblems*/
-		int num = sample.get_num_embs("Kiran");
-		System.out.println(num);
-		
-		/*Testing update_jeff_embs*/
-		sample.update_jeff_embs("Kiran", 2);
-		num = sample.get_num_embs("Kiran");
-		System.out.println(num);
-		
-		/*Testing update_password_info*/
-		sample.update_password_info("Kiran", "millhash", "myhash");
-		
-		/*Testing image retrieval*/
-		Question my_image = sample.retreive_image_data(2);
-		System.out.println(my_image.correctAnswerString);
+//		sample.create_user("Kiran", "kieranhash", "kieransalt");
+//		
+//		/*Testing verify_user*/
+//		Boolean my_bool = sample.verify_user("Kiran");
+//		if(my_bool)
+//		{
+//			System.out.println("true, it worked");
+//		}
+//		else
+//		{
+//			System.out.println("false, failed");
+//		}
+//		my_bool = sample.verify_user("Luke");
+//		if(my_bool)
+//		{
+//			System.out.println("true, failed");
+//		}
+//		else
+//		{
+//			System.out.println("false, it worked");
+//		}
+//		
+//		
+//		/*Testing get_password_info*/
+//		ArrayList<String> pass = sample.get_password_info("Kiran");
+//		System.out.println(pass.get(0));
+//		System.out.println(pass.get(1));
+//		
+//		//*Testing get_num_emblems*/
+//		int num = sample.get_num_embs("Kiran");
+//		System.out.println(num);
+//		
+//		/*Testing update_jeff_embs*/
+//		sample.update_jeff_embs("Kiran", 2);
+//		num = sample.get_num_embs("Kiran");
+//		System.out.println(num);
+//		
+//		/*Testing update_password_info*/
+//		sample.update_password_info("Kiran", "millhash", "myhash");
+//		
+//		/*Testing image retrieval*/
+//		Question my_image = sample.retreive_image_data(2);
+//		System.out.println(my_image.correctAnswerString);
+		GameSettings gs = sample.retreive_settings();
 		
 		sample.close_connections();
 		return;

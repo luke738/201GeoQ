@@ -80,7 +80,6 @@ public class LoginBackend
         //Find out if this is a valid username from the DB
         //For now, there are two valid usernames hardcoded in
         if(!db.verify_user(username)) return false;
-
         List<String> userPwInfo = db.get_password_info(username);
         password = toSHA1(userPwInfo.get(1)+password);
         return password.equals(userPwInfo.get(0));
