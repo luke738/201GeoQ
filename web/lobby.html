@@ -7,16 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Chat Test Page</title>
     <script src="js/chat.js"></script>
-    <link rel="stylesheet" href="css/chat.css"/>
+    <script src="js/lobby.js"></script>
+    <link rel="stylesheet" href="css/lobby.css"/>
 </head>
-<body onload="connectToServer()">
+<body onload="initialize();connectToServer();">
 <div class="wholePage">
     <span id="siteName"><a href="index.html">GeoQ</a></span>
     <div class="wrapper">
         <h1>Lobby</h1>
-        
     </div>
 </div>
+<div class="header" id = "nextGame"></div>
+<div class="header" id = "clock"></div>
 <!--Fix chrome bug with CSS transitions and forms-->
 <script> </script>
 <!--Yes, really.-->

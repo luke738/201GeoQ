@@ -10,7 +10,7 @@ function signup()
     if(valid == "accept")
     {
         sessionStorage.setItem("username", username);
-        window.location.href = "/GeoQ/chat.html";
+        window.location.href = "/GeoQ/lobby.html";
     }
     else if(valid == "userExists")
     {

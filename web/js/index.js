@@ -45,10 +45,10 @@ function startTimer(duration, display) {
             display.innerHTML = "Now!";
         }
 
-        if (diff <= 0) {
-            // add one second so that the count down starts at the full duration
-            start = Date.now() + 1000;
-        }
+//        if (diff <= 0) {
+//            // add one second so that the count down starts at the full duration
+//            start = Date.now() + 1000;
+//        }
     }
     timer();
     setInterval(timer, 1000);
