@@ -36,10 +36,7 @@ public class ManagementBackend
                     try
                     {
                         Connection c = new Connection(s);
-                        System.out.println("*************************************************************");
-                        System.out.println(state.settings.startTime.toEpochSecond(ZoneOffset.ofHours(-7)));
                         state.settings = new GameSettings(c.receive(GameSettingsSimple.class));
-                        System.out.println(state.settings.startTime.toEpochSecond(ZoneOffset.ofHours(-7)));
                         db.update_settings(state.settings);
                         c.send(true);
                     }

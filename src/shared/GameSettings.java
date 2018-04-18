@@ -31,8 +31,6 @@ public class GameSettings implements Serializable
 
     public GameSettings(GameSettingsSimple set)
     {
-        System.out.println("CONVERTING");
-        System.out.println("***"+set.startTimeEpoch);
         startTime = LocalDateTime.ofEpochSecond(set.startTimeEpoch, 0, ZoneOffset.ofHours(-7));
         timeBetweenGames = set.timeBetweenGames;
         numQuestions = set.numberOfQuestions;

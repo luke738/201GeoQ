@@ -38,7 +38,7 @@ public class ChatBackend
                     long millis = System.currentTimeMillis();
                     while(true)
                     {
-                        if(System.currentTimeMillis()-millis > 1000)
+                        if((System.currentTimeMillis()-millis)%10 == 0)
                         {
                             millis = System.currentTimeMillis();
                             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm:ssa");
