@@ -20,8 +20,6 @@ public class GameSettings
         this.startTime = startTime;
         this.timeBetweenGames = timeBetweenGames;
         this.numQuestions = numQuestions;
-<<<<<<< HEAD
-=======
         this.questionTime = questionTime;
         this.leaderboardTime = leaderboardTime;
         gson = new Gson();
@@ -34,7 +32,6 @@ public class GameSettings
         numQuestions = set.numberOfQuestions;
         questionTime = set.questionTime;
         leaderboardTime = set.leaderboardTime;
->>>>>>> origin/dev-Luke
         gson = new Gson();
     }
 
