@@ -60,7 +60,7 @@ public class Leaderboard extends HttpServlet
                 boardData.get(i).username = "<b>" + username + "</b>";
             }
         }
-        if(boardData.get(boardData.size()-1).username.equals(username))
+        if(boardData.size() != 0 && boardData.get(boardData.size()-1).username.equals(username))
         {
             boardData.get(boardData.size()-1).username = "<b>" + username + "</b>";
         }

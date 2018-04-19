@@ -2,6 +2,7 @@ package backend;
 
 import shared.Connection;
 import shared.Message;
+import shared.Question;
 import shared.User;
 import sun.print.resources.serviceui;
 
@@ -60,6 +61,15 @@ public class GameBackend
                                 }
                             }
 
+                            try
+                            {
+                                Thread.sleep(10000);
+                            }
+                            catch(InterruptedException e)
+                            {
+                                e.printStackTrace();
+                            }
+
                             long millis = System.currentTimeMillis();
                             long millis1 = System.currentTimeMillis();
                            
@@ -92,6 +102,15 @@ public class GameBackend
                                 }
                             }
 
+                            try
+                            {
+                                Thread.sleep(10000);
+                            }
+                            catch(InterruptedException e)
+                            {
+                                e.printStackTrace();
+                            }
+
                             state.settings.startTime = state.settings.startTime.plusHours(state.settings.timeBetweenGames);
                             db.update_settings(state.settings);
                             if(state.connectedUsers.size()>0)
@@ -106,6 +125,15 @@ public class GameBackend
                                 }
                                 db.update_jeff_embs(winner.username, db.get_num_embs(winner.username) + 1);
                             }
+
+                            Question[] questions = new Question[10];
+                            Question curr = null;
+                            for(int i=1;i<11;i++) {
+                                curr = db.retreive_image_data(i);
+                                questions[i-1] = curr;
+                            }
+                            state.questions = questions;
+                            state.connectedUsers.clear();
                         }
                     }
                     else if(m.header.equals("notDummy"))

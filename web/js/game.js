@@ -40,7 +40,7 @@ function initialize() {
           addressControl: false,
           fullscreenControl: false
         });
-    samp = startTimer(sessionStorage.getItem('questionTime'), document.getElementById("clock"));
+    startTimer(sessionStorage.getItem('questionTime'), document.getElementById("clock"));
 }
 
 function startTimer(duration, display) {
@@ -154,8 +154,6 @@ function connectToGame()
 			}
 			else {
 				hideLeaderboard();
-				clearInterval(samp);
-				samp = startTimer(sessionStorage.getItem('questionTime'), document.getElementById("clock"));
 			}
 		}
 	}
