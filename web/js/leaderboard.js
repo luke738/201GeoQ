@@ -9,7 +9,7 @@ function loadLeaderboard()
     for(var i = 0; i<results.length; i++)
     {
         board.innerHTML += " <tr class=\"boardRow\"> " +
-                            "   <td>"+results[i].username+" "+results[i].emblems+"</td>" +
+                            "   <td>"+results[i].username+" "+results[i].emblems+"    </td>" +
                             "   <td>"+results[i].score+" "+results[i].tieSymbol+"</td> " +
                             "</tr>";
     }

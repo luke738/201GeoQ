@@ -33,13 +33,14 @@
   visibility: visible;
   height: 100%;
   width: 100%;
+  z-index: 2;
 }
 
 #leaderboard {
 	position: absolute;
 	opacity: 0;
+	z-index: 1;
 		
-	z-index: 2;
 	width: 25vw;
     padding: 15px 35px 45px;
 	background-color: #fff;
