@@ -32,7 +32,7 @@ public class LeaderboardBackend
                     try
                     {
                         Connection c = new Connection(s);
-                        ArrayList<User> arr = new ArrayList<>(state.connectedUsers.values());
+                        ArrayList<User> arr = new ArrayList<>(state.users());
                         c.send(arr);
                         c.close();
                     }

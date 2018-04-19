@@ -40,7 +40,7 @@ function initialize() {
           addressControl: false,
           fullscreenControl: false
         });
-    samp = startTimer(sessionStorage.getItem('questionTime'), document.getElementById("clock"));
+    startTimer(sessionStorage.getItem('questionTime'), document.getElementById("clock"));
 }
 
 function startTimer(duration, display) {
@@ -88,6 +88,7 @@ function connectToGame()
 	{
 		// show leaderboard, highlight correct/incorrect answers
 		if(event.data === "Show Leaderboard") {
+			socket.send(-1);
 			showLeaderboard();
 			if(question.correctAnswerString === document.getElementById("button1").value) {
 				document.getElementById("button1").style.background = "#28AF6E";
@@ -154,8 +155,6 @@ function connectToGame()
 			}
 			else {
 				hideLeaderboard();
-				clearInterval(samp);
-				samp = startTimer(sessionStorage.getItem('questionTime'), document.getElementById("clock"));
 			}
 		}
 	}
