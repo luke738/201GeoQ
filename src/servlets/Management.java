@@ -22,13 +22,8 @@ public class Management extends HttpServlet
 {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        HttpSession curr = request.getSession();
         PrintWriter pw = response.getWriter();
-        if(!curr.getAttribute("username").equals("admin"))
-        {
-            pw.println("invalidUser");
-            pw.flush();
-        }
+        String password = request.getParameter("password");
         int startTime = Integer.valueOf(request.getParameter("startTime"));
         int timeBetweenGame = Integer.valueOf(request.getParameter("timeBetweenGame"));
         int numQuestions = Integer.valueOf(request.getParameter("numQuestions"));
@@ -46,7 +41,7 @@ public class Management extends HttpServlet
             System.out.println("");
             set.startTimeEpoch = (int)LocalDateTime.now().plusSeconds(10).toEpochSecond(ZoneOffset.ofHours(-7));
         }
-        c.send(set);
+        c.send(new Message(password, set));
         Boolean valid = c.receive(Boolean.class);
         System.out.println("got");
 

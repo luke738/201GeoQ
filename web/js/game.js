@@ -40,7 +40,7 @@ function initialize() {
           addressControl: false,
           fullscreenControl: false
         });
-    samp = startTimer(sessionStorage.getItem('questionTime'), document.getElementById("clock"));
+    startTimer(sessionStorage.getItem('questionTime'), document.getElementById("clock"));
 }
 
 function startTimer(duration, display) {
@@ -77,7 +77,7 @@ function startTimer(duration, display) {
 function connectToGame() 
 {
 	// asychronous connection
-	socket = new WebSocket("ws://localhost:8080/GeoQ/ws");
+	socket = new WebSocket("ws://192.168.43.89:8080/GeoQ/ws");
 	first = true;
 	//overwriting the function in javascript
 	socket.onopen = function(event) {
@@ -88,6 +88,7 @@ function connectToGame()
 	{
 		// show leaderboard, highlight correct/incorrect answers
 		if(event.data === "Show Leaderboard") {
+			socket.send(-1);
 			showLeaderboard();
 			if(question.correctAnswerString === document.getElementById("button1").value) {
 				document.getElementById("button1").style.background = "#28AF6E";
@@ -154,8 +155,6 @@ function connectToGame()
 			}
 			else {
 				hideLeaderboard();
-				clearInterval(samp);
-				samp = startTimer(sessionStorage.getItem('questionTime'), document.getElementById("clock"));
 			}
 		}
 	}

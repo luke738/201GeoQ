@@ -18,7 +18,7 @@
 --
 -- Table structure for table `management`
 --
-
+USE geoq_data;
 DROP TABLE IF EXISTS `management`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;

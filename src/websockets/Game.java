@@ -79,6 +79,7 @@ public class Game
                 {
                     c = new Connection(new Socket("localhost", 4366));
                     c.send(new Message("notDummy", username));
+                    session.getUserProperties().put("usernameSent", true);
                 }
                 catch(IOException e)
                 {
