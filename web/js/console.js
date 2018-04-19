@@ -1,6 +1,7 @@
 function setting()
 {
     var xhttp = new XMLHttpRequest();
+    var password = sha1(document.getElementById("password".value));
     var startDay = document.getElementById("startDay").value;
     var startHour = document.getElementById("startHrs").value;
     var startMin = document.getElementById("startMin").value;
