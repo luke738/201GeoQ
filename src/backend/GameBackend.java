@@ -113,10 +113,10 @@ public class GameBackend
 
                             state.settings.startTime = state.settings.startTime.plusHours(state.settings.timeBetweenGames);
                             db.update_settings(state.settings);
-                            if(state.connectedUsers.size()>0)
+                            if(state.numUsers()>0)
                             {
-                                User winner = new ArrayList<>(state.connectedUsers.values()).get(0);
-                                for(User u : state.connectedUsers.values())
+                                User winner = new ArrayList<>(state.users()).get(0);
+                                for(User u : state.users())
                                 {
                                     if(winner.score < u.score)
                                     {
@@ -133,7 +133,7 @@ public class GameBackend
                                 questions[i-1] = curr;
                             }
                             state.questions = questions;
-                            state.connectedUsers.clear();
+                            state.clearUsers();
                         }
                     }
                     else if(m.header.equals("notDummy"))
@@ -148,22 +148,29 @@ public class GameBackend
                             {
                                 uemb.append(emblem);
                             }
-                            state.connectedUsers.put(username, new User(username, uemb.toString()));
+                            System.out.println(username);
+                            state.addUser(new User(username, uemb.toString()));
                         }
                         else
                         {
-                            state.connectedUsers.put(username, new User(username));
+                            System.out.println(username);
+                            state.addUser(new User(username));
                         }
                         while(state.currentQuestion < state.questions.length)
                         {
                             Message me = c.receive(Message.class);
+                            System.out.println("1"+state.getUser(username).score);
                             if(me.header.equals("answer"))
                             {
-                                if((Integer)me.body==state.questions[state.currentQuestion].correctAnswer)
+                                if((Integer)me.body!=-1 && (Integer)me.body==state.questions[state.currentQuestion].correctAnswer)
                                 {
-                                    state.connectedUsers.get(username).score++;
+                                    User u = state.getUser(username);
+                                    u.score++;
+                                    state.setUser(u);
+                                    System.out.println("a"+state.getUser(username).score);
                                 }
                             }
+                            System.out.println("2"+state.getUser(username).score);
                         }
                     }
                     else if(m.header.equals("lobbyPull"))

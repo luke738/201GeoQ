@@ -88,6 +88,7 @@ function connectToGame()
 	{
 		// show leaderboard, highlight correct/incorrect answers
 		if(event.data === "Show Leaderboard") {
+			socket.send(-1);
 			showLeaderboard();
 			if(question.correctAnswerString === document.getElementById("button1").value) {
 				document.getElementById("button1").style.background = "#28AF6E";
