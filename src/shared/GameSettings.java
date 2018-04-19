@@ -31,11 +31,6 @@ public class GameSettings implements Serializable
 
     public GameSettings(GameSettingsSimple set)
     {
-<<<<<<< HEAD
-=======
-        System.out.println("CONVERTING");
-        System.out.println("***"+set.startTimeEpoch);
->>>>>>> parent of 2f2fd8f... Revert "Merge branch 'master' into dev-Ophir"
         startTime = LocalDateTime.ofEpochSecond(set.startTimeEpoch, 0, ZoneOffset.ofHours(-7));
         timeBetweenGames = set.timeBetweenGames;
         numQuestions = set.numberOfQuestions;

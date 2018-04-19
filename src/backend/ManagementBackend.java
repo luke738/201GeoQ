@@ -36,14 +36,7 @@ public class ManagementBackend
                     try
                     {
                         Connection c = new Connection(s);
-<<<<<<< HEAD
                         state.settings = new GameSettings(c.receive(GameSettingsSimple.class));
-=======
-                        System.out.println("*************************************************************");
-                        System.out.println(state.settings.startTime.toEpochSecond(ZoneOffset.ofHours(-7)));
-                        state.settings = new GameSettings(c.receive(GameSettingsSimple.class));
-                        System.out.println(state.settings.startTime.toEpochSecond(ZoneOffset.ofHours(-7)));
->>>>>>> parent of 2f2fd8f... Revert "Merge branch 'master' into dev-Ophir"
                         db.update_settings(state.settings);
                         c.send(true);
                     }

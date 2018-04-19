@@ -8,16 +8,8 @@ function initialize()
     
     document.getElementById("nextGame").innerHTML = "The next game starts at:<br/> " + startTime;
     document.title += " | Next game at " + startTime;
-<<<<<<< HEAD
-    console.log(loadTime);
-    console.log(timeFromLoad);
-    console.log(Date.now());
-    console.log(timeFromLoad-(Date.now()-loadTime));
-    console.log((timeFromLoad*1000-(Date.now()-loadTime))/1000);
-    startTimer((timeFromLoad*1000-(Date.now()-loadTime))/1000, document.getElementById("clock"));
-=======
+
     startTimer(timeFromLoad-(Date.now()-loadTime), document.getElementById("clock"));
->>>>>>> parent of 2f2fd8f... Revert "Merge branch 'master' into dev-Ophir"
 
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "GeoQ/LobbyPull", true);
