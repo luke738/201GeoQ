@@ -64,7 +64,7 @@ function startTimer(duration, display) {
         seconds = seconds < 10 ? "0" + seconds : seconds;
 
         display.innerHTML = seconds;
-        if(seconds == 0) {
+        if(seconds <= 0) {
         		clearInterval(samp);
         }
     }
