@@ -20,18 +20,29 @@ public class GameDummy
 
     public GameDummy()
     {
-        try
+        Boolean connected = false;
+        while(!connected)
         {
-            //javax.websocket.WebSocketContainer container = javax.websocket.ContainerProvider.getWebSocketContainer();
-            WebSocketContainer container = WsContainerProvider.getWebSocketContainer();
-            String uri = "ws://localhost:8080/GeoQ/ws";
-            container.connectToServer(this, new URI(uri));
+            try
+            {
+                //javax.websocket.WebSocketContainer container = javax.websocket.ContainerProvider.getWebSocketContainer();
+                WebSocketContainer container = WsContainerProvider.getWebSocketContainer();
+                String uri = "ws://localhost:8080/GeoQ/ws";
+                container.connectToServer(this, new URI(uri));
+                connected=true;
 
-        }
-        catch(Exception e)
-        {
-            System.out.println("Exception in GameDummy");
-            e.printStackTrace();
+            }
+            catch(Exception e)
+            {
+                try
+                {
+                    Thread.sleep(1000);
+                }
+                catch(Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+            }
         }
     }
 
