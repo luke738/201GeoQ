@@ -38,7 +38,9 @@ public class Leaderboard extends HttpServlet
             if(aBoardData.username.equals(username)) user = aBoardData;
         }
         if(boardData.size()>10) boardData = boardData.subList(0, 10);
-        boardData.add(user);
+        if(!user.username.equals("")) {
+            boardData.add(user);
+        }
         boardData.sort(Comparator.comparingInt((User o) -> -o.score).thenComparingInt(o -> o.timeTaken));
         //Loop to see if any ties happened and add emoji to indicate winner/loser to user
         for(int i = 0; i < boardData.size()-1; i++)
