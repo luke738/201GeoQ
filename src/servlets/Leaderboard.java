@@ -32,16 +32,7 @@ public class Leaderboard extends HttpServlet
 
         //Sort by score then time, and drop anyone under the top 10
         boardData.sort(Comparator.comparingInt((User o) -> -o.score).thenComparingInt(o -> o.timeTaken));
-        User user = new User("",0,0);
-        for(User aBoardData : boardData)
-        {
-            if(aBoardData.username.equals(username)) user = aBoardData;
-        }
         if(boardData.size()>10) boardData = boardData.subList(0, 10);
-        if(!user.username.equals("")) {
-            boardData.add(user);
-        }
-        boardData.sort(Comparator.comparingInt((User o) -> -o.score).thenComparingInt(o -> o.timeTaken));
         //Loop to see if any ties happened and add emoji to indicate winner/loser to user
         for(int i = 0; i < boardData.size()-1; i++)
         {
@@ -54,15 +45,7 @@ public class Leaderboard extends HttpServlet
                 boardData.get(i).tieSymbol = "&#x23F3" + boardData.get(i).tieSymbol;
                 boardData.get(i+1).tieSymbol += "&#x231B";
             }
-
-            if(boardData.get(i).username.equals(username))
-            {
-                boardData.get(i).username = "<b>" + username + "</b>";
-            }
-        }
-        if(boardData.size() != 0 && boardData.get(boardData.size()-1).username.equals(username))
-        {
-            boardData.get(boardData.size()-1).username = "<b>" + username + "</b>";
+            System.out.println(boardData.get(i).emblems);
         }
         Gson gson = new Gson();
         String outData = gson.toJson(boardData);
