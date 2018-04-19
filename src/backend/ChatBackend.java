@@ -1,7 +1,9 @@
 package backend;
 
 import shared.Connection;
+import shared.GameSettings;
 import shared.Message;
+import websockets.Game;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -15,10 +17,12 @@ public class ChatBackend
 {
     private ServerSocket ss;
     private List<Connection> connections = new ArrayList<>();
+    private GameState state;
 
-    public ChatBackend() throws IOException
+    public ChatBackend(GameState state) throws IOException
     {
         ss = new ServerSocket(4368);
+        this.state = state;
     }
 
     public void start()
@@ -38,12 +42,10 @@ public class ChatBackend
                     long millis = System.currentTimeMillis();
                     while(true)
                     {
-                        if((System.currentTimeMillis()-millis) % 10000 == 0)
+                        if((System.currentTimeMillis()-millis)>10000 && (System.currentTimeMillis()/1000)%10==0)
                         {
                             millis = System.currentTimeMillis();
-                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm:ssa");
-                            LocalTime now = LocalTime.now();
-                            c.send(new Message("alert", "The current time is: " + dtf.format(now)));
+                            c.send(new Message("alert", "The current number of users is "+state.numUsers()+"."));
                         }
 
                     }
