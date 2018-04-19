@@ -42,7 +42,6 @@ public class Database {
 			conn = DriverManager.getConnection("jdbc:mysql://aakuj1ax0ezed6.cv6g30ag31vd.us-east-2.rds.amazonaws.com:3306/geoq_data?user=root&password=password123&useSSL=false");
 			st = conn.createStatement();
 		}
-		
 		catch (SQLException sqle) {
 			System.out.println ("SQLException: " + sqle.getMessage());
 		} 
