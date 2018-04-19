@@ -114,20 +114,14 @@ function connectToGame()
 				document.getElementById("button4").style.background = "#28AF6E";
 			}
 
-			document.getElementById("button1").disabled = true;
-			document.getElementById("button2").disabled = true;
-			document.getElementById("button3").disabled = true;
-			document.getElementById("button4").disabled = true;
-			document.getElementById("button1").style.color = "black";
-			document.getElementById("button2").style.color = "black";
-			document.getElementById("button3").style.color = "black";
-			document.getElementById("button4").style.color = "black";
+			disableButton();
 
 			// answer checking
 			
 		}
 		// change to the next street view image
 		else if(event.data === "End Game") {
+			window.location.assign("leaderboard.html");
 		}
 		else {
 			question = JSON.parse(event.data);
@@ -166,6 +160,7 @@ function connectToGame()
 }
 
 function sendChoice1() {
+	disableButton();
 	document.getElementById("button1").style.background = "#A2E8DD";
 	document.getElementById("button2").style.background = "#bab9b4";
 	document.getElementById("button3").style.background = "#bab9b4";
@@ -175,6 +170,7 @@ function sendChoice1() {
 }
 
 function sendChoice2() {
+	disableButton();
 	document.getElementById("button1").style.background = "#bab9b4";
 	document.getElementById("button2").style.background = "#A2E8DD";
 	document.getElementById("button3").style.background = "#bab9b4";
@@ -184,6 +180,7 @@ function sendChoice2() {
 }
 
 function sendChoice3() {
+	disableButton();
 	document.getElementById("button1").style.background = "#bab9b4";
 	document.getElementById("button2").style.background = "#bab9b4";
 	document.getElementById("button3").style.background = "#A2E8DD";
@@ -193,6 +190,7 @@ function sendChoice3() {
 }
 
 function sendChoice4() {
+	disableButton();
 	document.getElementById("button1").style.background = "#bab9b4";
 	document.getElementById("button2").style.background = "#bab9b4";
 	document.getElementById("button3").style.background = "#bab9b4";
@@ -201,14 +199,27 @@ function sendChoice4() {
 	return false;
 }
 
+function disableButton() {
+	document.getElementById("button1").disabled = true;
+	document.getElementById("button2").disabled = true;
+	document.getElementById("button3").disabled = true;
+	document.getElementById("button4").disabled = true;
+	document.getElementById("button1").style.color = "black";
+	document.getElementById("button2").style.color = "black";
+	document.getElementById("button3").style.color = "black";
+	document.getElementById("button4").style.color = "black";
+}
+
 function showLeaderboard() {
 	loadLeaderboard();
+	document.getElementById("leaderboard").style.zIndex = "3";
 	document.getElementById("leaderboard").style.animation = "fadeIn 1s forwards";	
 	document.getElementById("street-view").style.filter = "blur(5px)";
 	
 }
 
 function hideLeaderboard() {
+	document.getElementById("leaderboard").style.zIndex = "1";
 	document.getElementById("leaderboard").style.animation = "fadeOut 1s forwards";
 	document.getElementById("street-view").style.filter = "blur(0)";
 }
