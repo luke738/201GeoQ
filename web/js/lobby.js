@@ -42,10 +42,22 @@ function startTimer(duration, display) {
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        display.innerHTML = hours + ":" + minutes + ":" + seconds;
+        console.log(hours);
+        console.log(minutes);
+        console.log(seconds);
+
         if(hours == 0 && minutes == 0 && seconds == 0)
         {
         		window.location.href = "/GeoQ/QuestionPage.html";
+        }
+        else if(hours[1]=="-" || minutes[1]=="-" || seconds[1]=="-")
+        {
+            console.log(hours + ":" + minutes + ":" + seconds);
+            display.innerHTML = "Sorry!<br>You're too late!";
+        }
+        else
+        {
+            display.innerHTML = hours + ":" + minutes + ":" + seconds;
         }
 
 //        if (diff <= 0) {
