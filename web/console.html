@@ -8,14 +8,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="js/console.js"></script>
+    <script src="js/sha1.js"></script>
 </head>
-<body>
+<body style="background-color: #eeeeee">
 <div class="wholePage">
-    <span id="siteName"><a href="index.html">GeoQ</a></span>
-    <div class="wrapper">
+    <span id="siteName" style="right: 25vw; left: auto; margin-top: 15px"><a href="index.html">GeoQ</a></span>
+    <div class="wrapper" style="width:50vw; margin-left: 25vw;">
         <form class="form-signin" onsubmit="return setting();">
             <h2 class="form-signin-heading">Enter new settings:</h2>
             <h4 id="error"></h4>
+            <p>Admin password:</p>
+            <input id="password" type="password" class="form-control" name="password" placeholder="Admin password"><br>
             <p>Start Day:</p>
             <input id="startDay" type="number" class="form-control" name="startDay" placeholder="Days from today" /><br>
             <p>Start Hour:</p>
@@ -31,7 +34,7 @@
             <p>Leaderboard Time</p>
             <input id="lTime" type="number" class="form-control" name="lTime" placeholder="Leaderboard time"><br>
             <p>Check to start game in 10s:</p>
-            <input id="startNow" type="checkbox" class="form-control" name="startNow" value="true" />
+            <input id="startNow" type="checkbox" class="form-control" name="startNow" value="true" style="width:10vw;"/>
             <button class="btn btn-md btn-primary btn-block" type="submit">Update Settings</button>
         </form>
     </div>

@@ -77,7 +77,7 @@ function startTimer(duration, display) {
 function connectToGame() 
 {
 	// asychronous connection
-	socket = new WebSocket("ws://localhost:8080/GeoQ/ws");
+	socket = new WebSocket("ws://192.168.43.89:8080/GeoQ/ws");
 	first = true;
 	//overwriting the function in javascript
 	socket.onopen = function(event) {

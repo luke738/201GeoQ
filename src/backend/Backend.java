@@ -35,7 +35,7 @@ public class Backend
 
         try
         {
-            ChatBackend ctb = new ChatBackend();
+            ChatBackend ctb = new ChatBackend(state);
             Thread ct = new Thread(ctb::start);
             ct.start();
         }
