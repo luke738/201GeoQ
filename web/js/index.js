@@ -11,6 +11,8 @@ function initialize()
     sessionStorage.setItem('timeFromLoad', settings.timeToStart);
     sessionStorage.setItem('numQuest', settings.numberOfQuestions);
     sessionStorage.setItem('key', key);
+    sessionStorage.setItem('questionTime', settings.questionTime);
+    sessionStorage.setItem('leaderboardTime', settings.leaderboardTime);
 
     document.getElementById("nextGame").innerHTML = "The next game starts at:<br/> " + settings.startTime;
     document.title += " | Next game at " + settings.startTime;

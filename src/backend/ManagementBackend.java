@@ -2,30 +2,29 @@ package backend;
 
 import shared.Connection;
 import shared.GameSettings;
-import shared.Message;
+import shared.GameSettingsSimple;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneOffset;
 
-public class SettingsBackend
+public class ManagementBackend
 {
     private ServerSocket ss;
     private GameState state;
+    private Database db;
 
-    public SettingsBackend(GameState state) throws IOException
+    public ManagementBackend(GameState state, Database db) throws IOException
     {
-        ss = new ServerSocket(4369);
+        ss = new ServerSocket(4365);
         this.state = state;
+        this.db = db;
     }
 
     public void start()
     {
-        System.out.println("SettingsBackend running.");
+        System.out.println("ManagementBackend running.");
         while(true)
         {
             try
@@ -37,7 +36,9 @@ public class SettingsBackend
                     try
                     {
                         Connection c = new Connection(s);
-                        c.send(state.settings.toJSON());
+                        state.settings = new GameSettings(c.receive(GameSettingsSimple.class));
+                        db.update_settings(state.settings);
+                        c.send(true);
                     }
                     catch(IOException e)
                     {

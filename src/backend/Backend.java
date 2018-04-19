@@ -6,22 +6,20 @@ import shared.Question;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
-
 public class Backend
 {
     public static void main(String[] args)
     {
         //Initalize DB object
         //Get settings from DB and initalize GameState, hardcoded here:
-    		Database db = new Database();
-    		GameSettings gs = db.retreive_settings(LocalDateTime.now().getDayOfMonth());
-    		Question[] questions = new Question[10];
-    		Question curr = null;
-    		for(int i=1;i<11;i++) {
-    			curr = db.retreive_image_data(i);
-    			questions[i-1] = curr;
-    		}
+        Database db = new Database();
+    	GameSettings gs = db.retreive_settings();
+    	Question[] questions = new Question[10];
+    	Question curr = null;
+    	for(int i=1;i<11;i++) {
+    		curr = db.retreive_image_data(i);
+    		questions[i-1] = curr;
+    	}
         GameState state = new GameState(gs, questions);
         
         try
@@ -81,11 +79,20 @@ public class Backend
         
         try 
         {
-        		GameBackend gtb = new GameBackend(state, db);
-        		Thread st = new Thread(gtb::start);
-        		st.start();
+            GameBackend gtb = new GameBackend(state, db);
+        	Thread st = new Thread(gtb::start);
+        	st.start();
         } catch (IOException e) {
-        		e.printStackTrace();
+        	e.printStackTrace();
+        }
+
+        try
+        {
+            ManagementBackend mtb = new ManagementBackend(state, db);
+            Thread st = new Thread(mtb::start);
+            st.start();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         
         System.out.println("All backends started.");

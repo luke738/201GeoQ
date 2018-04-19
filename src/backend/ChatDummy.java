@@ -29,7 +29,7 @@ public class ChatDummy
             {
                 try
                 {
-                    Thread.sleep(10000); //Don't go overboard on reattempting connection
+                    Thread.sleep(1000); //Don't go overboard on reattempting connection
                 }
                 catch(InterruptedException ex)
                 {

@@ -1,18 +1,5 @@
 function initialize()
 {
-//    var xhttp = new XMLHttpRequest();
-//    var key = "guest"+Math.floor(Math.random()*100000000);
-//    xhttp.open("GET", "/GeoQ/Settings?key="+key, false);
-//    xhttp.send();
-//    var settings = JSON.parse(xhttp.response);
-//    sessionStorage.setItem('startTime', settings.startTime);
-//    sessionStorage.setItem('loadTime', Date.now());
-//    sessionStorage.setItem('timeFromLoad', settings.timeToStart);
-//    sessionStorage.setItem('numQuest', settings.numberOfQuestions);
-//    sessionStorage.setItem('key', key);
-//	  YOU COULD MAYBE MAKE A CALL AND DO THIS BUT LOOK AT SETTINGS SERVLET BEFORE DOING IT
-//	  BECAUSE THE SESSION STORAGE MIGHT GET WIPED
-	
     var startTime = sessionStorage.getItem('startTime');
     var loadTime = sessionStorage.getItem('loadTime');
     var timeFromLoad = sessionStorage.getItem('timeFromLoad');
@@ -21,8 +8,14 @@ function initialize()
     
     document.getElementById("nextGame").innerHTML = "The next game starts at:<br/> " + startTime;
     document.title += " | Next game at " + startTime;
-    startTimer(timeFromLoad, document.getElementById("clock"));
+    startTimer(timeFromLoad-(Date.now()-loadTime), document.getElementById("clock"));
 
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "GeoQ/LobbyPull", true);
+    xhttp.onreadystatechange = function(ev) {
+        if(ev.data = "go") window.location.href = "/GeoQ/QuestionPage.html";
+        else xhttp.open("GET", "GeoQ/LobbyPull", true);
+    }
 }
 
 function startTimer(duration, display) {
