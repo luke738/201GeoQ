@@ -8,7 +8,12 @@ function initialize()
     
     document.getElementById("nextGame").innerHTML = "The next game starts at:<br/> " + startTime;
     document.title += " | Next game at " + startTime;
-    startTimer(timeFromLoad-(Date.now()-loadTime), document.getElementById("clock"));
+    console.log(loadTime);
+    console.log(timeFromLoad);
+    console.log(Date.now());
+    console.log(timeFromLoad-(Date.now()-loadTime));
+    console.log((timeFromLoad*1000-(Date.now()-loadTime))/1000);
+    startTimer((timeFromLoad*1000-(Date.now()-loadTime))/1000, document.getElementById("clock"));
 
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "GeoQ/LobbyPull", true);

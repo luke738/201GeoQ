@@ -42,7 +42,6 @@ public class Database {
 			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1/geoq_data?user=root&password=root&useSSL=false");
 			st = conn.createStatement();
 		}
-		
 		catch (SQLException sqle) {
 			System.out.println ("SQLException: " + sqle.getMessage());
 		} 
