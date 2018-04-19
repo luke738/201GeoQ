@@ -3,11 +3,15 @@ package backend;
 import shared.Connection;
 import shared.GameSettings;
 import shared.GameSettingsSimple;
+import shared.Message;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.ZoneOffset;
+import java.util.List;
 
 public class ManagementBackend
 {
@@ -36,7 +40,13 @@ public class ManagementBackend
                     try
                     {
                         Connection c = new Connection(s);
-                        state.settings = new GameSettings(c.receive(GameSettingsSimple.class));
+                        Message m = c.receive(Message.class);
+                        if(!validate("admin", m.header))
+                        {
+                            c.send(false);
+                            return;
+                        }
+                        state.settings = new GameSettings((GameSettingsSimple)m.body);
                         db.update_settings(state.settings);
                         c.send(true);
                     }
@@ -52,5 +62,15 @@ public class ManagementBackend
                 e.printStackTrace();
             }
         }
+    }
+
+    public Boolean validate(String username, String password)
+    {
+        //Find out if this is a valid username from the DB
+        //For now, there are two valid usernames hardcoded in
+        if(!db.verify_user(username)) return false;
+        List<String> userPwInfo = db.get_password_info(username);
+        password = LoginBackend.toSHA1(userPwInfo.get(1)+password);
+        return password.equals(userPwInfo.get(0));
     }
 }
